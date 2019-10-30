@@ -111,10 +111,10 @@
     "@angular-devkit/core" "7.2.2"
     rxjs "6.3.3"
 
-"@angular/animations@7.2.1":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.1.tgz#10cdca8b68ce9a91d81b77348146d1db608fc25f"
-  integrity sha512-2AHc4HYz2cUVW3E0oYOTyUzBTnPJdtmVOx/Uo6+jnRqikvOGFOc5VXzFIYODe1Iiy+EYcSZ1lvQqwUbpZd6gwA==
+"@angular/animations@^7.2.15":
+  version "7.2.15"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.15.tgz#980c1f523a79d4b7cb44508f57fba06f2e0872fa"
+  integrity sha512-8oBt3HLgd2+kyJHUgsd7OzKCCss67t2sch15XNoIWlOLfxclqU+EfFE6t/vCzpT8/+lpZS6LU9ZrTnb+UBj5jg==
   dependencies:
     tslib "^1.9.0"
 
@@ -1453,7 +1453,7 @@ compressible@~2.0.13:
 
 compression@^1.5.2:
   version "1.7.2"
-  resolved "http://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
+  resolved "https://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
   dependencies:
     accepts "~1.3.4"
     bytes "3.0.0"
@@ -3833,8 +3833,9 @@ lodash.debounce@^4.0.8:
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
 lodash.mergewith@^4.6.0:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.2.tgz#617121f89ac55f59047c7aec1ccd6654c6590f55"
+  integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash.tail@^4.1.1:
   version "4.1.1"
@@ -4374,6 +4375,13 @@ neo-async@^2.5.0:
 next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
+
+ngx-toastr@^10.1.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-10.2.0.tgz#8a79008de0b1c013f90120a53e0355af5762e969"
+  integrity sha512-6ASr5bcvQmtNKb4D2VEsQjCXyROq6GwberBWO0bVt+xcBYPUea4aRTgX8in9apX9buaTafzG+h3HlnIraspoPg==
+  dependencies:
+    tslib "^1.9.0"
 
 no-case@^2.2.0:
   version "2.3.2"
