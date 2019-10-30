@@ -1,0 +1,84 @@
+<div class="mdl-card mdl-card__blank-layout-card mdl-shadow--2dp">
+  <div class="mdl-card__supporting-text color--dark-gray">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+        <span class="mdl-card__title-text text-color--smooth-gray">smartProject</span>
+      </div>
+      <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+        <span class="blank-layout-card-name text-color--white">Rejestracja</span>
+      </div>
+
+      <form class="login-form" [formGroup]="service.formModel" (submit)="onSubmit()" novalidate autocomplete="off">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
+            <input formControlName="UserName" class="mdl-textfield__input" type="text">
+            <label class="mdl-textfield__label form-control" for="username">Nazwa użytkownika *</label>
+            <div>
+              <span *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required" class="mdl-textfield__error">
+                  Nazwa użytkownika nie może być pusta.
+              </span>
+            </div>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
+            <input formControlName="Email" class="mdl-textfield__input form-control" type="text">
+            <label class="mdl-textfield__label">Email</label>
+            <div>
+              <span *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email" class="mdl-textfield__error">
+                Pole E-mail nie może być puste.
+              </span>
+            </div>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
+              <input formControlName="FullName" class="mdl-textfield__input form-control" type="text">
+              <label class="mdl-textfield__label">Full Name</label>
+            </div>
+
+          <div formGroupName="Passwords">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
+              <input formControlName="Password" class="mdl-textfield__input form-control" type="password">
+              <label class="mdl-textfield__label">Hasło</label>
+
+              <div>
+                <span *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required" class="mdl-textfield__error">
+                  Password is required. 
+                </span>
+                <span *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength" class="mdl-textfield__error">
+                  4 znaki.
+                </span>
+              </div>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
+              <input formControlName="Confirm" class="mdl-textfield__input form-control" type="text">
+              <label class="mdl-textfield__label">Potwierdź hasło</label>
+              <div>
+                <span *ngIf="service.formModel.get('Passwords.Confirm').touched && service.formModel.get('Passwords.Confirm').errors?.required" class="mdl-textfield__error">
+                    This field is mandatory.
+                </span>
+                <span *ngIf="service.formModel.get('Passwords.Confirm').touched && service.formModel.get('Passwords.Confirm').errors?.passwordMismatch" class="mdl-textfield__error">
+                    Password does not match.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <label baseCheckbox color="light-blue" class="checkbox--inline" inline></label>
+          <span class="blank-layout-card-link">I agree all statements in <a href="#"
+                                                                            class="underlined">terms of service</a></span>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
+          <a routerLink="/pages/login" class="blank-layout-card-link">I have already signed up</a>
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-button--raised color--light-blue"
+                  type="submit" [disabled]="!service.formModel.valid">
+            SIGN UP
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
