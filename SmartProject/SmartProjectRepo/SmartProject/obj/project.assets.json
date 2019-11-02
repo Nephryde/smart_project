@@ -8757,11 +8757,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Repo\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
+      "projectUniqueName": "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
       "projectName": "SmartProject",
-      "projectPath": "G:\\Repo\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
+      "projectPath": "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
       "packagesPath": "C:\\Users\\jangi\\.nuget\\packages\\",
-      "outputPath": "G:\\Repo\\SmartProject\\SmartProjectRepo\\SmartProject\\obj\\",
+      "outputPath": "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
