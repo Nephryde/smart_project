@@ -15,6 +15,5 @@ namespace SmartProject.Models
         public DateTime AddedDate { get; set; }
         public TaskStatusModel Status { get; set; }
         public TaskPriorityModel Priority { get; set; }
-        public TaskProgressModel Progress { get; set; }
     }
 }
