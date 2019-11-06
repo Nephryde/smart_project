@@ -131,6 +131,7 @@
           <td class="mdl-data-table__cell--non-numeric">
               <span *ngFor="let i of Array(row[8])" class="label label--mini label__availability"
                     [class.background-color--secondary]="row[8] === 1"
+                    [class.color--amber]="row[8] === 5"
                     [class.color--orange]="row[8] === 2"
                     [class.background-color--primary]="row[8] === 4"
                     [class.color--green]="row[8] === 3"></span>
@@ -147,3 +148,5 @@
     </base-card-body>
   </base-card>
 </div>
+
+<button (click)="click()"></button>

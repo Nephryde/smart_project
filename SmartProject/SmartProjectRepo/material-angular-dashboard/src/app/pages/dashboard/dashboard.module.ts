@@ -14,6 +14,7 @@ import { TodoListComponent } from './todo-list';
 import { TrendingComponent } from './trending';
 import { WeatherComponent } from './weather';
 import { YourTasksComponent } from './your-tasks/your-tasks.component';
+import { YourTasksService } from './your-tasks/your-tasks.service';
 
 @NgModule({
   imports: [
@@ -36,6 +37,9 @@ import { YourTasksComponent } from './your-tasks/your-tasks.component';
   exports: [
     WeatherComponent,
     TrendingComponent,
+  ],
+  providers: [
+    YourTasksService,
   ],
 })
 export class DashboardModule { }

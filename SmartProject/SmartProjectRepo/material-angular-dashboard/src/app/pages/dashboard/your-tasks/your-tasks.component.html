@@ -1,4 +1,5 @@
-<base-card>
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+  <base-card>
     <base-card-title>
       <h1 class="mdl-card__title-text">Zadania przypisane do Ciebie</h1>
       <div class="mdl-layout-spacer"></div>
@@ -23,25 +24,27 @@
         <tr *ngFor="let row of advancedTable">
           <td *ngFor="let cell of row.slice(0, 3)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
           <td class="mdl-data-table__cell--non-numeric">
-            <span *ngFor="let genre of row[3]"
-                  class="label label--mini color--{{ genreColors[genre] }}">{{ genre }}</span>
+            <span *ngFor="let genre of row[3].slice(1,2)" class="label label--mini color--{{ genreColors[genre] }}">{{ genre }}</span>
           </td>
-          <td *ngFor="let cell of row.slice(4, 8)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+          <td *ngFor="let cell of row[6].slice(1,2)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+          <td *ngFor="let cell of row.slice(4,5)" class="mdl-data-table__cell--non-numeric">{{ cell | slice:0:10}}</td>
+          <td *ngFor="let cell of row[5].slice(1,2)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
           <td class="mdl-data-table__cell--non-numeric">
-              <span *ngFor="let i of Array(row[8])" class="label label--mini label__availability"
-                    [class.background-color--secondary]="row[8] === 1"
-                    [class.color--orange]="row[8] === 2"
-                    [class.background-color--primary]="row[8] === 4"
-                    [class.color--green]="row[8] === 3"></span>
-            <span *ngFor="let i of Array(4 - row[8])" class="label label--mini label__availability"></span>
-          </td>
-          <td class="mdl-data-table__cell--non-numeric">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal">Add to
-              cart
-            </button>
+            <span *ngFor="let item of Array(row[5][0])" class="label label--mini label__availability"
+                  [class.background-color--secondary]="row[5][0] === 1"
+                  [class.color--orange]="row[5][0] === 2"
+                  [class.background-color--primary]="row[5][0] === 4"
+                  [class.color--green]="row[5][0] === 3"></span>
+            <span *ngFor="let i of Array(8 - row[5][0])" class="label label--mini label__availability"></span>
           </td>
         </tr>
         </tbody>
       </table>
     </base-card-body>
   </base-card>
+</div>
+
+<button (click)="click()"></button>
+
+
+
