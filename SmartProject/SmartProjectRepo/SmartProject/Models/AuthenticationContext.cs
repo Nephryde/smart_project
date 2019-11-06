@@ -10,17 +10,13 @@ namespace SmartProject.Models
 {
     public class AuthenticationContext : IdentityDbContext
     {
-        public AuthenticationContext(DbContextOptions options) : base(options)
+        public AuthenticationContext(DbContextOptions<AuthenticationContext> options) : base(options)
         {
 
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<TaskTypeModel> TaskTypes { get; set; }
-        public DbSet<TaskPriorityModel> TaskPriorities { get; set; }
-        public DbSet<TaskProgressModel> TaskProgresses { get; set; }
-        public DbSet<TaskStatusModel> TaskStatuses { get; set; }
-        public DbSet<TaskModel> Task { get; set; }
+        
         
     }
 }
