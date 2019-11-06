@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class TablesService {
 
-  private advanceTableData = [
+  public advanceTableData = [
     [
       '5',
       'Life of Pi',
@@ -408,6 +408,10 @@ export class TablesService {
 
   public getAdvancedTablePage(page, countPerPage) {
     return this.advanceTableData.slice((page - 1) * countPerPage, page * countPerPage);
+  }
+
+  public click() {
+    return this.advanceTableData;
   }
 
   public changeAdvanceSorting(order, index) {

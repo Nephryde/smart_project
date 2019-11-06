@@ -13,6 +13,7 @@ import { RightSidebarModule } from './right-sidebar';
 import { TablesComponent, TablesService } from './tables';
 import { TypographyComponent } from './typography';
 import { UIRoutingModule } from './ui-routing.module';
+import { YourTasksService } from '../dashboard/your-tasks/your-tasks.service';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { UIRoutingModule } from './ui-routing.module';
   ],
   providers: [
     TablesService,
+    YourTasksService,
   ],
 })
 export class UIModule { }

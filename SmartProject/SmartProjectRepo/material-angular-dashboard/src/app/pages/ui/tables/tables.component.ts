@@ -57,6 +57,12 @@ export class TablesComponent extends UpgradableComponent {
     }
   }
 
+  public click(){
+    for(let row of this.advancedTable){
+      console.log(row[8])
+    }
+  }
+
   /* available sort value:
 	-1 - desc; 	0 - no sorting; 1 - asc; null - disabled */
   public changeSorting(header, index) {
