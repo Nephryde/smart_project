@@ -10,7 +10,13 @@
       td {
         font-size: 1rem;
       }
+
+      td:hover {
+        cursor: pointer;
+      }
     }
+
+    
   
     .no-padding {
       padding: 0;

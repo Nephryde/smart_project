@@ -20,20 +20,20 @@ namespace SmartProject.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
-        [Authorize]
-        //GET : api/UserProfile
-        public async Task<Object> GetUserProfile()
-        {
-            string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await _userManager.FindByIdAsync(userId);
+        //[HttpGet]
+        //[Authorize]
+        ////GET : api/UserProfile
+        //public async Task<Object> GetUserProfile()
+        //{
+        //    string userId = User.Claims.First(c => c.Type == "UserID").Value;
+        //    var user = await _userManager.FindByIdAsync(userId);
 
-            return new
-            {
-                user.FullName,
-                user.Email,
-                user.UserName
-            };
-        }
+        //    return new
+        //    {
+        //        user.FullName,
+        //        user.Email,
+        //        user.UserName
+        //    };
+        //}
     }
 }

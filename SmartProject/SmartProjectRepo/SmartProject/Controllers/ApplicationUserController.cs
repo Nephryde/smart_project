@@ -11,6 +11,8 @@ using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartProject.Controllers
 {
@@ -21,12 +23,14 @@ namespace SmartProject.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationSettings _appSettings;
+        private readonly AuthenticationContext _context;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings)
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings, AuthenticationContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _appSettings = appSettings.Value;
+            _context = context;
         }
 
         [HttpPost]
@@ -38,7 +42,10 @@ namespace SmartProject.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                FullName = model.FullName
+                UserBasic = new UserBasicInfo()
+                {
+                    FullName = model.FullName
+                }
             };
 
             try
@@ -66,7 +73,7 @@ namespace SmartProject.Controllers
                     {
                         new Claim("UserID", user.Id.ToString())
                     }),
-                    Expires = DateTime.UtcNow.AddMinutes(5),
+                    Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -76,6 +83,22 @@ namespace SmartProject.Controllers
             }
             else
                 return BadRequest(new { message = "Username or password is incorrect" });
+        }
+
+        [HttpGet]
+        [Route("GetCurrentUser")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<Object> GetCurrentUser()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            return new UserBasicInfo
+            {
+                Id = user.UserBasic.Id,
+                FullName = user.UserBasic.FullName
+            };
         }
     }
 }

@@ -24,7 +24,7 @@ import { SignUpComponent } from './sign-up';
     ErrorComponent,
     LoginComponent,
     SignUpComponent,
-    ForgotPasswordComponent,
+    ForgotPasswordComponent
   ],
 })
 export class PagesModule { }

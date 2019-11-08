@@ -1,0 +1,32 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h2 class="mdl-card__title-text">{{ task?.type.typeName }} #{{task?.id}} - {{ task?.title }}</h2>
+    </base-card-title>
+    <base-card-body>
+      <p>
+        To use button with color background, you need to use CSS class naming as the
+        corresponding color in lowercase with prefix <code><b>button--colored-</b></code>.<br>
+        If the color name is composed of more than one world, the words are separated by a dash "-".<br>
+        You can see the names of the colors <a href="ui-colors.html">here</a>.
+        <br><br>
+        <i class="color-text--teal">Example: You want to use colored button with color naming "Teal". CSS class for this case is <code><b>.button--colored-teal</b></code></i>
+        <br><br><br>
+        To use social button, you need to use CSS class naming as the
+        corresponding social network in lowercase with prefix <code><b>button--</b></code>.
+        <br><br>
+        <i class="color-text--teal">Example: You want to use Facebook button. CSS class for this case is <code><b>.button--facebook</b></code></i>
+      </p>
+    </base-card-body>
+  </base-card>
+</div>
+<div *ngFor="let comment of taskComments; index as i" class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h4 class="mdl-card__title-text">#{{i+1}} {{ comment.userName }}</h4>
+    </base-card-title>
+  <base-card-body>
+    <p>{{ comment.content }}</p>
+  </base-card-body>
+</base-card>
+</div>

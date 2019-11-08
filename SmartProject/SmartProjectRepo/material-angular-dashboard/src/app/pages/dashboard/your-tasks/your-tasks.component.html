@@ -21,8 +21,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let row of advancedTable">
-          <td *ngFor="let cell of row.slice(0, 3)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+        <tr *ngFor="let row of advancedTable" (click)="goToTaskDetails(row[0])">
+          <td *ngFor="let cell of row.slice(0,2)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+          <td *ngFor="let cell of row[2].slice(1,2)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
           <td class="mdl-data-table__cell--non-numeric">
             <span *ngFor="let genre of row[3].slice(1,2)" class="label label--mini color--{{ genreColors[genre] }}">{{ genre }}</span>
           </td>
@@ -37,14 +38,13 @@
                   [class.color--green]="row[5][0] === 3"></span>
             <span *ngFor="let i of Array(8 - row[5][0])" class="label label--mini label__availability"></span>
           </td>
+          <td class="mdl-data-table__cell--non-numeric">project</td>
         </tr>
         </tbody>
       </table>
     </base-card-body>
   </base-card>
 </div>
-
-<button (click)="click()"></button>
 
 
 

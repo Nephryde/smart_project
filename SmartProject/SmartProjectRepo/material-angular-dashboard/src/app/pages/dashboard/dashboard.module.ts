@@ -15,6 +15,8 @@ import { TrendingComponent } from './trending';
 import { WeatherComponent } from './weather';
 import { YourTasksComponent } from './your-tasks/your-tasks.component';
 import { YourTasksService } from './your-tasks/your-tasks.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'app/services';
 
 @NgModule({
   imports: [
@@ -39,7 +41,11 @@ import { YourTasksService } from './your-tasks/your-tasks.service';
     TrendingComponent,
   ],
   providers: [
-    YourTasksService,
+    YourTasksService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
 })
 export class DashboardModule { }

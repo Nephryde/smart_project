@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartProject.Models;
 
 namespace SmartProject.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20191107233217_ProjectUserModelInit")]
+    partial class ProjectUserModelInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,7 +245,7 @@ namespace SmartProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("ProjectModel");
                 });
 
             modelBuilder.Entity("SmartProject.Models.ProjectUserModel", b =>
@@ -266,34 +268,6 @@ namespace SmartProject.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ProjectUser");
-                });
-
-            modelBuilder.Entity("SmartProject.Models.Task.TaskCommentModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("TaskId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TaskComments");
                 });
 
             modelBuilder.Entity("SmartProject.Models.Task.TaskPriorityModel", b =>
@@ -470,17 +444,6 @@ namespace SmartProject.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartProject.Models.Task.TaskCommentModel", b =>
-                {
-                    b.HasOne("SmartProject.Models.TaskModel", "Task")
-                        .WithMany("TaskComments")
-                        .HasForeignKey("TaskId");
-
-                    b.HasOne("SmartProject.Models.UserBasicInfo", "User")
-                        .WithMany("TaskComments")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SmartProject.Models.TaskModel", b =>

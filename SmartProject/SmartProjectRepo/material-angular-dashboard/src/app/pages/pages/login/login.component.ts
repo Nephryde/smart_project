@@ -25,6 +25,8 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('token') != null)
+      this.router.navigateByUrl('/#/app/dashboard');
   }
 
   onSubmit(form:NgForm){
