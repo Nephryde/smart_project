@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartProject.Models;
@@ -13,21 +16,30 @@ namespace SmartProject.Controllers
     [ApiController]
     public class DashboardController : ControllerBase
     {
-        private readonly APIDBContext _context;
+        private readonly AuthenticationContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DashboardController(APIDBContext context)
+        public DashboardController(AuthenticationContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Dashboard
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<TaskModel>>> GetTask()
         {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
             return await _context.Task
+                .Include(x => x.User)
                 .Include(x => x.Priority)
                 .Include(x => x.Status)
                 .Include(x => x.Type)
+                .Where(x => x.User.Id == user.UserBasic.Id)
                 .ToListAsync();
         }
 
@@ -35,7 +47,11 @@ namespace SmartProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskModel>> GetTaskModel(int id)
         {
-            var taskModel = await _context.Task.FindAsync(id);
+            var taskModel = await _context.Task
+                .Include(x => x.Priority)
+                .Include(x => x.Status)
+                .Include(x => x.Type)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (taskModel == null)
             {

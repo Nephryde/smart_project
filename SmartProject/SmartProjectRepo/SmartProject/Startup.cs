@@ -36,7 +36,6 @@ namespace SmartProject
             services.AddControllers();
 
             services.AddDbContext<AuthenticationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
-            services.AddDbContext<APIDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AuthenticationContext>();         
 

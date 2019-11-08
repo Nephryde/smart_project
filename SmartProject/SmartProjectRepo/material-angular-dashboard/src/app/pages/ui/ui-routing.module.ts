@@ -11,6 +11,7 @@ import { IconsComponent } from './icons';
 import { RightSidebarComponent } from './right-sidebar';
 import { TablesComponent } from './tables';
 import { TypographyComponent } from './typography';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { TypographyComponent } from './typography';
         path: '',
         component: CommonLayoutComponent,
         children: [
+          { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
           { path: 'buttons', component: ButtonsComponent, pathMatch: 'full' },
           { path: 'cards', component: CardsComponent, pathMatch: 'full' },
           { path: 'colors', component: ColorsComponent, pathMatch: 'full' },

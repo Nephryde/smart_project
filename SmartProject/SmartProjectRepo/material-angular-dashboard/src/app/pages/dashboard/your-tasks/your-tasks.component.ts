@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Task } from 'app/models/task/task.model';
 import { forEach } from '@angular/router/src/utils/collection';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-your-tasks',
@@ -24,14 +25,17 @@ export class YourTasksComponent implements OnInit {
   @HostBinding('class.mdl-cell--top') private readonly mdlCellTop = true;
   @HostBinding('class.ui-tables') private readonly uiTables = true;
 
-  constructor(private yourTasksService : YourTasksService, private http : HttpClient) { }
+  constructor(private yourTasksService : YourTasksService, private http : HttpClient, private route: Router) { }
 
   mapToArray(item){
     let array = [];
 
     for(const key of Object.keys(item)){
-        if(typeof item[key] === 'object')
+        if(item[key] == null)
+          item[key] = "";
+        if(typeof item[key] === 'object') {
             array.push(this.mapToArray(item[key]))
+        }
         else {
               array.push(item[key]);
         }
@@ -40,15 +44,26 @@ export class YourTasksComponent implements OnInit {
 }
 
   async ngOnInit() { 
+
     this.advanceTableData = await this.getData();
+    console.log(this.advanceTableData);
     this.advanceTableData = this.mapToArray(this.advanceTableData);
     console.log(this.advanceTableData);
     this.advancedTable = this.getAdvancedTablePage(1, this.countPerPage);
     this.numPage = this.getAdvancedTableNumOfPage(this.countPerPage);
+    
   }
 
   getData() : Promise<any> {
+    this.yourTasksService.getCurrentUser().subscribe(
+      res => { console.log(res) },
+      err => { console.log(err) },
+    );
     return this.yourTasksService.getTasksList().toPromise();
+  }
+
+  goToTaskDetails(id:number){
+    this.route.navigate(['ui/task/', id]);
   }
 
   public readonly sortOrder = {

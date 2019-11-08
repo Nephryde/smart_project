@@ -13,6 +13,7 @@ import { ComponentsModule } from './pages/components';
 import { DashboardModule } from './pages/dashboard';
 import { Dashboard2Module } from './pages/dashboard2';
 import { FormsModule } from './pages/forms';
+import { YourTasksService } from './pages/dashboard/your-tasks/your-tasks.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,7 @@ import { FormsModule } from './pages/forms';
     BrowserAnimationsModule,
   ],
   providers: [
-    AuthService,
+    AuthService, YourTasksService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

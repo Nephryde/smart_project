@@ -9,19 +9,39 @@ import {
 } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
   }
 
-  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // add authorization token for full api requests
-    if (request.url.includes('api') && this.auth.isLoggedIn) {
-      request = request.clone({
-        setHeaders: { Authorization: `Bearer ${this.auth.authToken}` },
+  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {  
+    if(localStorage.getItem('token') != null) {      
+      const clonedReq = request.clone({
+        headers : request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
       });
+      return next.handle(clonedReq).pipe(
+        tap(
+          succ => { },
+          err => {
+            if(err.status == 401) {
+              // localStorage.removeItem('token');
+              // this.router.navigateByUrl('/#/pages/login');
+            }             
+          }
+        )
+      )
     }
-    return next.handle(request);
+    else
+      return next.handle(request.clone());
+    // add authorization token for full api requests
+    // if (request.url.includes('api') && this.auth.isLoggedIn) {
+    //   request = request.clone({
+    //     setHeaders: { Authorization: `Bearer ${this.auth.authToken}` },
+    //   });
+    // }
+    // return next.handle(request);
   }
 }

@@ -10,10 +10,11 @@ namespace SmartProject.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Author { get; set; }
+        public UserBasicInfo User { get; set; }
         public TaskTypeModel Type { get; set; }
         public DateTime AddedDate { get; set; }
         public TaskStatusModel Status { get; set; }
         public TaskPriorityModel Priority { get; set; }
+        public ICollection<TaskCommentModel> TaskComments { get; set; }
     }
 }

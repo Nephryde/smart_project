@@ -23,6 +23,7 @@ export class SidebarComponent extends BaseSidebarComponent {
           'icons',
           'typography',
           'tables',
+          'task',
         ].map(ui => ({
           name: ui[0].toUpperCase() + ui.slice(1),
           link: `/ui/${ui}`,
