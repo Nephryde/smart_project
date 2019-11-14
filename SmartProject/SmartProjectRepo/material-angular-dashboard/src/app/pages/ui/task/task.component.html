@@ -1,32 +1,46 @@
 <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
   <base-card>
     <base-card-title>
-      <h2 class="mdl-card__title-text">{{ task?.type.typeName }} #{{task?.id}} - {{ task?.title }}</h2>
+      <h2 class="mdl-card__title-text">{{ task?.type }} #{{task?.taskId}} - {{ task?.title }}</h2>
     </base-card-title>
     <base-card-body>
-      <p>
-        To use button with color background, you need to use CSS class naming as the
-        corresponding color in lowercase with prefix <code><b>button--colored-</b></code>.<br>
-        If the color name is composed of more than one world, the words are separated by a dash "-".<br>
-        You can see the names of the colors <a href="ui-colors.html">here</a>.
-        <br><br>
-        <i class="color-text--teal">Example: You want to use colored button with color naming "Teal". CSS class for this case is <code><b>.button--colored-teal</b></code></i>
-        <br><br><br>
-        To use social button, you need to use CSS class naming as the
-        corresponding social network in lowercase with prefix <code><b>button--</b></code>.
-        <br><br>
-        <i class="color-text--teal">Example: You want to use Facebook button. CSS class for this case is <code><b>.button--facebook</b></code></i>
-      </p>
+      <p>Dodane przez <a href="">{{ task?.authorName }}</a>.<span style="padding-left: 8px">Ostatnia aktualizacja: {{ task?.modifiedDate | slice:0:10}}</span></p>
+      <div class="row">
+        <div class="mdl-cell mdl-cell--5-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+          <p><b>Status:</b> {{ task?.status }}</p>
+          <p><b>Priorytet:</b> {{ task?.priority }}</p>
+          <p><b>Przypisany do:</b><a href=""> {{ task?.userAssignedName }}</a></p>
+          <p><b>Szacowany czas:</b> {{ task?.estimatedTime }}</p>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone">
+          <p><b>Data rozpoczęcia:</b> {{ task?.addedDate | slice:0:10 }}</p>
+          <p><b>Data oddania:</b> {{ task?.deadlineDate | slice:0:10 }}</p> 
+          <div class="progress" style="height: 18px;">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': task?.progress*50 + '%'}"></div>
+            </div>
+            <br>
+          <p><b>Przepracowany czas:</b> PRZEPRACOWANY CZAS</p>
+        </div>
+      </div>
+      <hr>
+      <h6>Opis</h6>
+      <div class="row">
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+          {{ task?.description }}
+        </div>
+      </div>
+      <hr>
+      <h6>Podzagadnienia</h6>
     </base-card-body>
   </base-card>
 </div>
 <div *ngFor="let comment of taskComments; index as i" class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
   <base-card>
-    <base-card-title>
-      <h4 class="mdl-card__title-text">#{{i+1}} {{ comment.userName }}</h4>
+    <base-card-title style="padding: 10px 16px;">
+      <h6 class="mdl-card__title-text">#{{i+1}} {{ comment.userName }}</h6>
     </base-card-title>
   <base-card-body>
-    <p>{{ comment.content }}</p>
+    <p [innerHTML]="comment.content"></p>
   </base-card-body>
 </base-card>
 </div>

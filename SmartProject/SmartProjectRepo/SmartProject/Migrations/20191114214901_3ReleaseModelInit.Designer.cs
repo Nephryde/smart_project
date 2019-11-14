@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartProject.Models;
 
 namespace SmartProject.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20191114214901_3ReleaseModelInit")]
+    partial class _3ReleaseModelInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,12 +300,15 @@ namespace SmartProject.Migrations
                     b.Property<int>("ReleaseId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ReleasesId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReleaseId");
+                    b.HasIndex("ReleasesId");
 
                     b.HasIndex("UserId");
 
@@ -396,19 +401,13 @@ namespace SmartProject.Migrations
                     b.Property<DateTime?>("DeadlineDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("EstimatedTime")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("EstimatedTime")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("PriorityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReleaseId")
                         .HasColumnType("int");
 
                     b.Property<int?>("StatusId")
@@ -429,8 +428,6 @@ namespace SmartProject.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PriorityId");
-
-                    b.HasIndex("ReleaseId");
 
                     b.HasIndex("StatusId");
 
@@ -545,11 +542,9 @@ namespace SmartProject.Migrations
 
             modelBuilder.Entity("SmartProject.Models.ReleaseUserModel", b =>
                 {
-                    b.HasOne("SmartProject.Models.ReleaseModel", "Release")
+                    b.HasOne("SmartProject.Models.ReleaseModel", "Releases")
                         .WithMany("ReleaseUsers")
-                        .HasForeignKey("ReleaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReleasesId");
 
                     b.HasOne("SmartProject.Models.UserBasicInfo", "User")
                         .WithMany("ReleaseUsers")
@@ -574,10 +569,6 @@ namespace SmartProject.Migrations
                     b.HasOne("SmartProject.Models.Task.TaskPriorityModel", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
-
-                    b.HasOne("SmartProject.Models.ReleaseModel", "Release")
-                        .WithMany("Tasks")
-                        .HasForeignKey("ReleaseId");
 
                     b.HasOne("SmartProject.Models.Task.TaskStatusModel", "Status")
                         .WithMany()
