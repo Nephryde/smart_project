@@ -46,7 +46,6 @@ export class YourTasksComponent implements OnInit {
   async ngOnInit() { 
 
     this.advanceTableData = await this.getData();
-    console.log(this.advanceTableData);
     this.advanceTableData = this.mapToArray(this.advanceTableData);
     console.log(this.advanceTableData);
     this.advancedTable = this.getAdvancedTablePage(1, this.countPerPage);

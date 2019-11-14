@@ -10,7 +10,8 @@ namespace SmartProject.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime AddedDate { get; set; }
-        public DateTime CloseDate { get; set; }
+        public DateTime? CloseDate { get; set; }
+        public ICollection<ReleaseModel> Releases { get; set; }
         public ICollection<ProjectUserModel> ProjectUsers { get; set; }
     }
 }

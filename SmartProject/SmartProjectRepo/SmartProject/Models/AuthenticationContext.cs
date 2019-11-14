@@ -38,6 +38,8 @@ namespace SmartProject.Models
         public DbSet<ProjectModel> Projects { get; set; }
         public DbSet<ProjectUserModel> ProjectUser { get; set; }
         public DbSet<TaskCommentModel> TaskComments { get; set; }
+        public DbSet<ReleaseModel> Releases { get; set; }
+        public DbSet<ReleaseUserModel> ReleaseUser { get; set; }
 
 
     }

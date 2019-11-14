@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TaskService } from './task.service';
 import { Task } from 'app/models/task/task.model';
 import { TaskComment } from 'app/models/task/task-comment.model';
+import { TaskDetails } from 'app/models/task/task-details.model';
 
 @Component({
   selector: 'app-task',
@@ -14,8 +15,9 @@ import { TaskComment } from 'app/models/task/task-comment.model';
 export class TaskComponent implements OnInit {
 
   id: number;
-  task: Task;
+  task: TaskDetails;
   taskComments: TaskComment[] = [];
+  progress: number;
 
   constructor(private taskService: TaskService, private route: Router) { }
 

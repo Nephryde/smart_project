@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartProject.Models;
+using SmartProject.Models.Task;
 
 namespace SmartProject.Controllers
 {
@@ -28,37 +29,81 @@ namespace SmartProject.Controllers
         // GET: api/Dashboard
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<TaskModel>>> GetTask()
+        public async Task<ActionResult<IEnumerable<YourTasksViewModel>>> GetTask()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
             var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
 
-            return await _context.Task
-                .Include(x => x.User)
-                .Include(x => x.Priority)
-                .Include(x => x.Status)
-                .Include(x => x.Type)
-                .Where(x => x.User.Id == user.UserBasic.Id)
-                .ToListAsync();
+            var query = await (from t in _context.Task
+                               join u in _context.UserBasicInfo on t.UserCreated.Id equals u.Id
+                               join ts in _context.TaskStatuses on t.Status.Id equals ts.Id
+                               join tp in _context.TaskPriorities on t.Priority.Id equals tp.Id
+                               where t.UserAssigned.Id == user.UserBasic.Id
+                               select new YourTasksViewModel
+                               {
+                                   TaskId = t.Id,
+                                   Title = t.Title,
+                                   Author = t.UserCreated.FullName,
+                                   AddedDate = t.AddedDate,
+                                   TypeName = t.Type.TypeName,
+                                   Status = t.Status,
+                                   Priority = t.Priority
+                               })
+                               .ToListAsync();
+
+            return query;
         }
 
         // GET: api/Dashboard/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskModel>> GetTaskModel(int id)
+        public async Task<ActionResult<TaskDetailsViewModel>> GetTaskModel(int id)
         {
-            var taskModel = await _context.Task
-                .Include(x => x.Priority)
-                .Include(x => x.Status)
-                .Include(x => x.Type)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var query = await (from t in _context.Task
+                               join u in _context.UserBasicInfo on t.UserCreated.Id equals u.Id
+                               join ts in _context.TaskStatuses on t.Status.Id equals ts.Id
+                               join tp in _context.TaskPriorities on t.Priority.Id equals tp.Id
+                               join tr in _context.Releases on t.Release.Id equals tr.Id
+                               where t.Id == id
+                               select new TaskDetailsViewModel
+                               {
+                                   TaskId = t.Id,
+                                   Title = t.Title,
+                                   ProjectId = t.Release.Project.Id,
+                                   ProjectName = t.Release.Project.Name,
+                                   ReleaseId = t.Release.Id,
+                                   ReleaseName = t.Release.Name,
+                                   AuthorId = t.UserCreated.Id,
+                                   AuthorName = t.UserCreated.FullName,
+                                   UserAssignedId = t.UserAssigned.Id,
+                                   UserAssignedName = t.UserAssigned.FullName,
+                                   ModifiedDate = t.ModifiedDate,
+                                   AddedDate = t.AddedDate,
+                                   DeadlineDate = t.DeadlineDate,
+                                   Status = t.Status.StatusName,
+                                   Priority = t.Priority.PriorityName,
+                                   Type = t.Type.TypeName,
+                                   EstimatedTime = t.EstimatedTime,
+                                   Progress = t.Status.Id,
+                                   Description = t.Description
+                               })
+                               .SingleOrDefaultAsync();
 
-            if (taskModel == null)
-            {
-                return NotFound();
-            }
+            var x = query;
 
-            return taskModel;
+            //var taskModel = await _context.Task
+            //    .Include(x => x.UserCreated)
+            //    .Include(x => x.Priority)
+            //    .Include(x => x.Status)
+            //    .Include(x => x.Type)
+            //    .FirstOrDefaultAsync(x => x.Id == id);
+
+            //if (taskModel == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return query;
         }
 
         // PUT: api/Dashboard/5

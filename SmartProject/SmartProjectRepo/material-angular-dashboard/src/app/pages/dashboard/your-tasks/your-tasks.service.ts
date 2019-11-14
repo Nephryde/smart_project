@@ -31,23 +31,23 @@ export class YourTasksService {
         },
         {
         name: 'Typ zagadnienia',
-        sort: null,
+        sort: 0,
         },
         {
         name: 'Priorytet',
-        sort: null,
+        sort: 0,
         },
         {
         name: 'Data dodania',
-        sort: 0,
-        },
-        {
-        name: 'Status',
         sort: null,
         },
         {
-        name: 'Progres',
+        name: 'Status',
         sort: 0,
+        },
+        {
+        name: 'Progres',
+        sort: null,
         }
 
     ];
