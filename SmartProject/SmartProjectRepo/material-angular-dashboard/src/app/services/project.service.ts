@@ -13,10 +13,11 @@ export class ProjectService{
     getProjectReleases = (projectId: number) =>
         this.http.get(environment.apiBaseUrl + '/Project/Releases/' + projectId);
 
+    getReleaseTasks = (releaseId: number) =>
+        this.http.get(environment.apiBaseUrl + '/Task/ReleaseTasks/' + releaseId);
 
     getProjectsHeaders() {
         return [
-            '#',
             'Projekt',
             'Project Owner',
             'Status',
@@ -26,10 +27,48 @@ export class ProjectService{
     getReleasesHeaders() {
         return [
             'Wersja',
-            'Project Owner',
-            'Project Manager',
+            'Liczba zgłoszeń',
+            'Data zamknięcia',
         ];
     }
+
+    public getReleaseTasksHeaders() {
+        return [
+            {
+            name: '#',
+            sort: null,
+            },
+            {
+            name: 'Tytuł',
+            sort: 0,
+            },
+            {
+            name: 'Autor',
+            sort: 0,
+            },
+            {
+            name: 'Typ zagadnienia',
+            sort: 0,
+            },
+            {
+            name: 'Priorytet',
+            sort: 0,
+            },
+            {
+            name: 'Data dodania',
+            sort: null,
+            },
+            {
+            name: 'Status',
+            sort: 0,
+            },
+            {
+            name: 'Progres',
+            sort: null,
+            }
+    
+        ];
+        }
 
     mapToArray(item){
         let array = [];

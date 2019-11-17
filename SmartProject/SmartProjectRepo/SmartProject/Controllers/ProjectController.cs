@@ -58,7 +58,9 @@ namespace SmartProject.Controllers
                                where r.Project.Id == id
                                select new Dictionary<string, object>
                                {                                 
-                                   {"releaseName", r.Name },
+                                   {"releaseName", r.Name },                        
+                                   {"tasksCount", r.Tasks.Count },
+                                   {"deadlineDate", r.DeadlineDate },
                                    {"releaseId", r.Id }
                                })
                                .ToListAsync();

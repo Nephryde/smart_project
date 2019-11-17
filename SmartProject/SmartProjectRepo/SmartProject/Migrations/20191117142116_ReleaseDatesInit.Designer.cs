@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartProject.Models;
 
 namespace SmartProject.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20191117142116_ReleaseDatesInit")]
+    partial class ReleaseDatesInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,9 +286,6 @@ namespace SmartProject.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ClosedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeadlineDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

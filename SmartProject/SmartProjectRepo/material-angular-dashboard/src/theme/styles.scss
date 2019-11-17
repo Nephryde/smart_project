@@ -21,3 +21,7 @@
 @import './widgets/form';
 @import './widgets/input-group';
 @import '~ngx-toastr/toastr';
+
+main {
+    position: relative;
+}
