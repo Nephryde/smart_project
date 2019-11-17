@@ -11,6 +11,7 @@ namespace SmartProject.Models
         public string Name { get; set; }
         public DateTime AddedDate { get; set; }
         public DateTime? CloseDate { get; set; }
+        public UserBasicInfo ProjectManager { get; set; }
         public ICollection<ReleaseModel> Releases { get; set; }
         public ICollection<ProjectUserModel> ProjectUsers { get; set; }
     }

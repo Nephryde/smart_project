@@ -22,14 +22,67 @@ namespace SmartProject.Controllers
             _context = context;
         }
 
-        // GET: api/Task
+        // GET: api/Task/Task/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<TaskCommentDetailsViewModel>>> GetTaskComments(int id)
+        [Route("Task/{id}")]
+        public async Task<ActionResult<TaskDetailsViewModel>> GetTaskModel(int id)
+        {
+            var query = await (from t in _context.Task
+                               join u in _context.UserBasicInfo on t.UserCreated.Id equals u.Id
+                               join ts in _context.TaskStatuses on t.Status.Id equals ts.Id
+                               join tp in _context.TaskPriorities on t.Priority.Id equals tp.Id
+                               join tr in _context.Releases on t.Release.Id equals tr.Id
+                               where t.Id == id
+                               select new TaskDetailsViewModel
+                               {
+                                   TaskId = t.Id,
+                                   Title = t.Title,
+                                   ProjectId = t.Release.Project.Id,
+                                   ProjectName = t.Release.Project.Name,
+                                   ReleaseId = t.Release.Id,
+                                   ReleaseName = t.Release.Name,
+                                   AuthorId = t.UserCreated.Id,
+                                   AuthorName = t.UserCreated.FullName,
+                                   UserAssignedId = t.UserAssigned.Id,
+                                   UserAssignedName = t.UserAssigned.FullName,
+                                   ModifiedDate = t.ModifiedDate,
+                                   AddedDate = t.AddedDate,
+                                   DeadlineDate = t.DeadlineDate,
+                                   Status = t.Status.StatusName,
+                                   Priority = t.Priority.PriorityName,
+                                   Type = t.Type.TypeName,
+                                   EstimatedTime = t.EstimatedTime,
+                                   Progress = t.Status.Id,
+                                   Description = t.Description
+                               })
+                               .SingleOrDefaultAsync();
+
+            var x = query;
+
+            //var taskModel = await _context.Task
+            //    .Include(x => x.UserCreated)
+            //    .Include(x => x.Priority)
+            //    .Include(x => x.Status)
+            //    .Include(x => x.Type)
+            //    .FirstOrDefaultAsync(x => x.Id == id);
+
+            //if (taskModel == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return query;
+        }
+
+        // GET: api/Task
+        [HttpGet("{taskId}")]
+        [Route("GetTaskComments/{taskId}")]
+        public async Task<ActionResult<IEnumerable<TaskCommentDetailsViewModel>>> GetTaskComments(int taskId)
         {
             var query = await (from tc in _context.TaskComments
                                join u in _context.UserBasicInfo on tc.User.Id equals u.Id
                                join t in _context.Task on tc.Task.Id equals t.Id
-                               where tc.Task.Id == id
+                               where tc.Task.Id == taskId
                                select new TaskCommentDetailsViewModel
                                {
                                    CommentId = tc.Id,
@@ -99,6 +152,8 @@ namespace SmartProject.Controllers
 
             return CreatedAtAction("GetTaskCommentModel", new { id = taskCommentModel.Id }, taskCommentModel);
         }
+
+
 
         // DELETE: api/Task/5
         [HttpDelete("{id}")]
