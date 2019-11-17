@@ -7,8 +7,8 @@ export class TaskService{
     constructor(private http: HttpClient) { }
 
     getTaskById = (id: number) => 
-        this.http.get(environment.apiBaseUrl + '/Dashboard/' + id);
+        this.http.get(environment.apiBaseUrl + '/Task/Task/' + id);
         
-    getTaskComments =(id: number) =>
-        this.http.get(environment.apiBaseUrl + '/Task/' + id);
+    getTaskComments = (taskId: number) =>
+        this.http.get(environment.apiBaseUrl + '/Task/GetTaskComments/' + taskId);
 }

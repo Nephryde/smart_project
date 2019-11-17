@@ -55,57 +55,6 @@ namespace SmartProject.Controllers
             return query;
         }
 
-        // GET: api/Dashboard/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TaskDetailsViewModel>> GetTaskModel(int id)
-        {
-            var query = await (from t in _context.Task
-                               join u in _context.UserBasicInfo on t.UserCreated.Id equals u.Id
-                               join ts in _context.TaskStatuses on t.Status.Id equals ts.Id
-                               join tp in _context.TaskPriorities on t.Priority.Id equals tp.Id
-                               join tr in _context.Releases on t.Release.Id equals tr.Id
-                               where t.Id == id
-                               select new TaskDetailsViewModel
-                               {
-                                   TaskId = t.Id,
-                                   Title = t.Title,
-                                   ProjectId = t.Release.Project.Id,
-                                   ProjectName = t.Release.Project.Name,
-                                   ReleaseId = t.Release.Id,
-                                   ReleaseName = t.Release.Name,
-                                   AuthorId = t.UserCreated.Id,
-                                   AuthorName = t.UserCreated.FullName,
-                                   UserAssignedId = t.UserAssigned.Id,
-                                   UserAssignedName = t.UserAssigned.FullName,
-                                   ModifiedDate = t.ModifiedDate,
-                                   AddedDate = t.AddedDate,
-                                   DeadlineDate = t.DeadlineDate,
-                                   Status = t.Status.StatusName,
-                                   Priority = t.Priority.PriorityName,
-                                   Type = t.Type.TypeName,
-                                   EstimatedTime = t.EstimatedTime,
-                                   Progress = t.Status.Id,
-                                   Description = t.Description
-                               })
-                               .SingleOrDefaultAsync();
-
-            var x = query;
-
-            //var taskModel = await _context.Task
-            //    .Include(x => x.UserCreated)
-            //    .Include(x => x.Priority)
-            //    .Include(x => x.Status)
-            //    .Include(x => x.Type)
-            //    .FirstOrDefaultAsync(x => x.Id == id);
-
-            //if (taskModel == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return query;
-        }
-
         // PUT: api/Dashboard/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

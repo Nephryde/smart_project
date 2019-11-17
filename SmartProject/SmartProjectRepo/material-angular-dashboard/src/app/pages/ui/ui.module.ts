@@ -15,6 +15,11 @@ import { TypographyComponent } from './typography';
 import { UIRoutingModule } from './ui-routing.module';
 import { TaskComponent } from './task/task.component';
 import { TaskService } from './task/task.service';
+import { TaskAddComponent } from './task-add/task-add.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectService } from 'app/services/project.service';
+import { ProjectReleasesComponent } from './projects/project-releases/project-releases.component';
+import { ReleaseTasksComponent } from './projects/release-tasks/release-tasks.component';
 
 @NgModule({
   imports: [
@@ -33,10 +38,15 @@ import { TaskService } from './task/task.service';
     TypographyComponent,
     TablesComponent,
     TaskComponent,
+    TaskAddComponent,
+    ProjectsComponent,
+    ProjectReleasesComponent,
+    ReleaseTasksComponent,
   ],
   providers: [
     TablesService,
     TaskService,
+    ProjectService,
   ],
 })
 export class UIModule { }
