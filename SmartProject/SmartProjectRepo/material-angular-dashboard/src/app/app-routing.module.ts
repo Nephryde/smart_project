@@ -16,7 +16,7 @@ import { AuthGuard } from './services';
       [
         { path: '', redirectTo: 'app/dashboard', pathMatch: 'full' },
         { path: 'app', component: CommonLayoutComponent, children: [
-          { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
+          { path: 'dashboard', component: DashboardComponent, pathMatch: 'full'},
           { path: 'dashboard-custom', component: Dashboard2Component, pathMatch: 'full' },
           { path: 'forms', component: FormsComponent, pathMatch: 'full' },
           { path: 'charts', component: ChartsComponent, pathMatch: 'full' },

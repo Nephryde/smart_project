@@ -1,0 +1,6 @@
+<div *ngIf="isVisible" [@slideInOut]>
+  <app-projects (visibleComponent)="getVisibility($event)" (releaseId)="getReleaseId($event)"></app-projects>
+</div>
+<div *ngIf="!isVisible" [@slideInOutRight]>
+  <app-projects-task [releaseId]="releaseId" (visibleComponent)="getVisibility($event)" ></app-projects-task>
+</div>

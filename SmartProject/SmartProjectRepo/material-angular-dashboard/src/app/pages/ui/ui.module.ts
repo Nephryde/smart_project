@@ -16,10 +16,10 @@ import { UIRoutingModule } from './ui-routing.module';
 import { TaskComponent } from './task/task.component';
 import { TaskService } from './task/task.service';
 import { TaskAddComponent } from './task-add/task-add.component';
-import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsComponent } from './projects-panel/projects/projects.component';
 import { ProjectService } from 'app/services/project.service';
-import { ProjectReleasesComponent } from './projects/project-releases/project-releases.component';
-import { ReleaseTasksComponent } from './projects/release-tasks/release-tasks.component';
+import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
+import { ProjectsTaskComponent } from './projects-panel/projects-task/projects-task.component';
 
 @NgModule({
   imports: [
@@ -27,7 +27,7 @@ import { ReleaseTasksComponent } from './projects/release-tasks/release-tasks.co
     UIRoutingModule,
     ThemeModule,
     MaterialAngularSelectModule,
-    RightSidebarModule,
+    RightSidebarModule
   ],
   declarations: [
     ButtonsComponent,
@@ -40,8 +40,8 @@ import { ReleaseTasksComponent } from './projects/release-tasks/release-tasks.co
     TaskComponent,
     TaskAddComponent,
     ProjectsComponent,
-    ProjectReleasesComponent,
-    ReleaseTasksComponent,
+    ProjectsPanelComponent,
+    ProjectsTaskComponent,
   ],
   providers: [
     TablesService,

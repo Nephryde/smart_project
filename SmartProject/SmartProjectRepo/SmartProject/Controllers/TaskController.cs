@@ -59,17 +59,34 @@ namespace SmartProject.Controllers
 
             var x = query;
 
-            //var taskModel = await _context.Task
-            //    .Include(x => x.UserCreated)
-            //    .Include(x => x.Priority)
-            //    .Include(x => x.Status)
-            //    .Include(x => x.Type)
-            //    .FirstOrDefaultAsync(x => x.Id == id);
+            return query;
+        }
 
-            //if (taskModel == null)
-            //{
-            //    return NotFound();
-            //}
+        // GET: api/Task/Task/5
+        [HttpGet("{id}")]
+        [Route("ReleaseTasks/{id}")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetReleaseTasks(int id)
+        {
+            var query = await (from t in _context.Task
+                               join r in _context.Releases on t.Release.Id equals r.Id
+                               join u in _context.UserBasicInfo on t.UserAssigned.Id equals u.Id
+                               where t.Release.Id == id
+                               select new Dictionary<string, object>
+                               {
+                                   {"taskId", t.Id },
+                                   {"taskTitle", t.Title },
+                                   {"taskAuthor", t.UserCreated.FullName },
+                                   {"taskAssignedTo", t.UserAssigned.FullName },
+                                   {"taskType", t.Type.TypeName },
+                                   {"taskStatus", t.Status.StatusName },
+                                   {"taskPriority", t.Priority.PriorityName },
+                                   {"taskAddedDate", t.AddedDate },
+                                   {"taskDeadlineDate", t.DeadlineDate },
+                                   {"taskModifiedDate", t.ModifiedDate }
+                               })
+                               .ToListAsync();
+
+            var x = query;
 
             return query;
         }

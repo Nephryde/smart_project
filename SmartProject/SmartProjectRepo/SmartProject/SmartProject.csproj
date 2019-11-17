@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20191108214012_TaskCommentInit.cs" />
     <Compile Remove="Migrations\20191108214012_TaskCommentInit.Designer.cs" />
+    <Compile Remove="Migrations\20191117141949_ReleaseDatesInit.cs" />
+    <Compile Remove="Migrations\20191117141949_ReleaseDatesInit.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
