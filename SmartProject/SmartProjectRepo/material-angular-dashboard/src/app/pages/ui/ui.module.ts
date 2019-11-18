@@ -15,11 +15,9 @@ import { TypographyComponent } from './typography';
 import { UIRoutingModule } from './ui-routing.module';
 import { TaskComponent } from './task/task.component';
 import { TaskService } from './task/task.service';
-import { TaskAddComponent } from './task-add/task-add.component';
-import { ProjectsComponent } from './projects-panel/projects/projects.component';
 import { ProjectService } from 'app/services/project.service';
 import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
-import { ProjectsTaskComponent } from './projects-panel/projects-task/projects-task.component';
+import { AddProjectComponent } from './add-new/add-project/add-project.component';
 
 @NgModule({
   imports: [
@@ -38,10 +36,8 @@ import { ProjectsTaskComponent } from './projects-panel/projects-task/projects-t
     TypographyComponent,
     TablesComponent,
     TaskComponent,
-    TaskAddComponent,
-    ProjectsComponent,
     ProjectsPanelComponent,
-    ProjectsTaskComponent,
+    AddProjectComponent,
   ],
   providers: [
     TablesService,
