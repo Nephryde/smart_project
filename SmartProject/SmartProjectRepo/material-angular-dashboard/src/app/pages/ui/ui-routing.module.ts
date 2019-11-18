@@ -12,9 +12,8 @@ import { RightSidebarComponent } from './right-sidebar';
 import { TablesComponent } from './tables';
 import { TypographyComponent } from './typography';
 import { TaskComponent } from './task/task.component';
-import { TaskAddComponent } from './task-add/task-add.component';
-import { ProjectsComponent } from './projects-panel/projects/projects.component';
 import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
+import { AddProjectComponent } from './add-new/add-project/add-project.component';
 
 @NgModule({
   imports: [
@@ -24,8 +23,8 @@ import { ProjectsPanelComponent } from './projects-panel/projects-panel.componen
         component: CommonLayoutComponent,
         children: [
           { path: 'projects', component: ProjectsPanelComponent, pathMatch: 'full' },
+          { path: 'add-project', component: AddProjectComponent, pathMatch: 'full' },
           { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
-          { path: 'task-add', component: TaskAddComponent, pathMatch: 'full' },
           { path: 'buttons', component: ButtonsComponent, pathMatch: 'full' },
           { path: 'cards', component: CardsComponent, pathMatch: 'full' },
           { path: 'colors', component: ColorsComponent, pathMatch: 'full' },
