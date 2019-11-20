@@ -3,7 +3,6 @@ import { YourTasksService } from './your-tasks.service';
 import {HttpClient} from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Task } from 'app/models/task/task.model';
-import { forEach } from '@angular/router/src/utils/collection';
 import { Router } from '@angular/router';
 
 @Component({
