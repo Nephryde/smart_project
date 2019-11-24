@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { Project } from 'app/models/project/project.model';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { User } from 'app/models/user.model';
 
 @Injectable()
 export class ProjectService{
-    constructor(private http: HttpClient) { }
+    
+    constructor(private http: HttpClient, private fb: FormBuilder) { }
 
     getProjects(){
         return this.http.get(environment.apiBaseUrl + '/Project');
@@ -16,12 +20,55 @@ export class ProjectService{
     getReleaseTasks = (releaseId: number) =>
         this.http.get(environment.apiBaseUrl + '/Task/ReleaseTasks/' + releaseId);
 
+    getProjectManagers() {
+        return this.http.get(environment.apiBaseUrl + '/Project/GetProjectManagers');
+    }
+
+    addProject(form: FormGroup, prManager: User){
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        var body = {
+          Name: form.value.Name,
+          ProjectManager: prManager,
+        };
+        console.log(body);
+
+        return this.http.post(environment.apiBaseUrl + '/Project/AddNewProject', body);
+    }    
+
     getProjectsHeaders() {
         return [
-            'Projekt',
-            'Project Owner',
-            'Status',
-        ];
+            {
+              name: '#',
+              sort: null,
+            },
+            {
+              name: 'Nazwa',
+              sort: 0,
+            },
+            {
+              name: 'Menadżer projektu',
+              sort: 0,
+            },
+            {
+              name: 'Status',
+              sort: 0,
+            },
+            {
+              name: 'Data dodania',
+              sort: 0,
+            },
+            {
+              name: 'Działanie',
+              sort: null,
+            },
+            {
+              name: 'Wersje',
+              sort: null,
+            },
+          ];
     }
 
     getReleasesHeaders() {

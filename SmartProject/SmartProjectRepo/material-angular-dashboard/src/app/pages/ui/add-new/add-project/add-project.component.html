@@ -1,26 +1,32 @@
-<div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone">
+<div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
   <base-card>
     <base-card-title>
       <h5 class="mdl-card__title-text text-color--white">Nowy projekt</h5>
     </base-card-title>
     <base-card-body>
-      <form class="form form--basic">
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone form__article">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-              <input class="mdl-textfield__input" type="text">
-              <label class="mdl-textfield__label">Nazwa</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-              <input class="mdl-textfield__input" type="text" id="floating-last-name">
-              <label class="mdl-textfield__label" for="floating-last-name">Last Name</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-              <input class="mdl-textfield__input" type="text" id="floating-e-mail">
-              <label class="mdl-textfield__label" for="floating-e-mail">Email</label>
-            </div>
+      <form [formGroup]="myForm" (submit)="addNewProject()">
+        <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--6-col-phone form__article">            
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+            <input class="mdl-textfield__input" type="text" formControlName="Name">
+            <label class="mdl-textfield__label">Nazwa projektu</label>
           </div>
-        </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+            <mat-form-field>
+              <input type="text" aria-label="Number" placeholder="Menadżer projektu" formControlName="ProjectManager" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn(filteredOptions | async)">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+                    {{option.fullName}}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>      
+        <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone form__article">   
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal">
+            <i class="material-icons">add</i>
+            DODAJ
+          </button>
+          </div>
       </form>
     </base-card-body>
   </base-card>

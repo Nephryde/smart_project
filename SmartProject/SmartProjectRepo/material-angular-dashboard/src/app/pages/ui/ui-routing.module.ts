@@ -14,6 +14,7 @@ import { TypographyComponent } from './typography';
 import { TaskComponent } from './task/task.component';
 import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
 import { AddProjectComponent } from './add-new/add-project/add-project.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { AddProjectComponent } from './add-new/add-project/add-project.component
         path: '',
         component: CommonLayoutComponent,
         children: [
-          { path: 'projects', component: ProjectsPanelComponent, pathMatch: 'full' },
+          { path: 'projects', component: ProjectsComponent, pathMatch: 'full' },
           { path: 'add-project', component: AddProjectComponent, pathMatch: 'full' },
           { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
           { path: 'buttons', component: ButtonsComponent, pathMatch: 'full' },

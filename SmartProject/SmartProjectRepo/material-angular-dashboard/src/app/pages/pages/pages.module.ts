@@ -10,6 +10,8 @@ import { ForgotPasswordComponent } from './forgot-password';
 import { LoginComponent } from './login';
 import { PagesRoutingModule } from './pages-routing.module';
 import { SignUpComponent } from './sign-up';
+import { LoginLoadingComponent } from './login/login-loading/login-loading.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -19,12 +21,14 @@ import { SignUpComponent } from './sign-up';
     FormsModule,
     ReactiveFormsModule,
     TooltipModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     ErrorComponent,
     LoginComponent,
     SignUpComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    LoginLoadingComponent
   ],
 })
 export class PagesModule { }

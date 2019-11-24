@@ -16,6 +16,7 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
     UserName: '',
     Password: '',
   };
+  loading: boolean = false;
   public error: string;
 
   constructor(private service:UserService,
@@ -30,12 +31,15 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
   }
 
   onSubmit(form:NgForm){
+    this.loading = true;
     this.service.login(form.value).subscribe(
       (res:any) => {
+        this.loading = false;
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('/#/app/dashboard');
       },
       err => {
+        this.loading = false;
         if(err.status == 400)
           this.toastr.error('Niepoprawny login lub hasło.', 'Logowanie niepomyślne.');
         else

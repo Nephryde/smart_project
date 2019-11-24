@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartProject.Models;
 
 namespace SmartProject.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20191122183316_3ProjectId")]
+    partial class _3ProjectId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,15 +243,10 @@ namespace SmartProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectCreatorId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ProjectManagerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectCreatorId");
 
                     b.HasIndex("ProjectManagerId");
 
@@ -542,12 +539,8 @@ namespace SmartProject.Migrations
 
             modelBuilder.Entity("SmartProject.Models.ProjectModel", b =>
                 {
-                    b.HasOne("SmartProject.Models.UserBasicInfo", "ProjectCreator")
-                        .WithMany("ProjectCreators")
-                        .HasForeignKey("ProjectCreatorId");
-
                     b.HasOne("SmartProject.Models.UserBasicInfo", "ProjectManager")
-                        .WithMany("ProjectManagers")
+                        .WithMany("Projects")
                         .HasForeignKey("ProjectManagerId");
                 });
 

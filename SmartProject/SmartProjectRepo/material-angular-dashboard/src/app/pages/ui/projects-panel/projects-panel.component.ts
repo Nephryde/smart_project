@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
-import { trigger, transition, animate, style } from '@angular/animations'
+import { trigger, transition, animate, style, state, keyframes } from '@angular/animations'
 import { ProjectService } from 'app/services/project.service';
 import { Router } from '@angular/router';
 
@@ -25,13 +25,14 @@ import { Router } from '@angular/router';
       transition(':leave', [
         animate('200ms ease-in', style({transform: 'translateX(100%)'}))
       ])
-    ])
+    ]),
   ]
 })
 
 export class ProjectsPanelComponent implements OnInit {
   public readonly Array = Array;
   projects = [];
+  projectsTable = [];
   releases = [];
   tasks = [];
   tasksTable = [];
@@ -47,6 +48,7 @@ export class ProjectsPanelComponent implements OnInit {
   visibleRelease: boolean = false;
   visibleTask: boolean = false;
 
+
   @HostBinding('class.mdl-grid') private readonly mdlGrid = true;
   @HostBinding('class.mdl-cell') private readonly mdlCell = true;
   @HostBinding('class.mdl-cell--12-col-desktop') private readonly mdlCell12ColDesktop = true;
@@ -61,6 +63,7 @@ export class ProjectsPanelComponent implements OnInit {
   async ngOnInit() {
     this.projects = await this.getProjectsData();
     this.projects = this.projectService.mapToArray(this.projects);
+    this.projectsTable = this.getAdvancedTablePage(1, this.countPerPage);
     console.log(this.projects);
   }
 
@@ -89,7 +92,7 @@ export class ProjectsPanelComponent implements OnInit {
     this.tasks = await this.getReleaseTasksData(releaseId);
     this.tasks = this.projectService.mapToArray(this.tasks);
     this.releaseName = this.releases[index][0];
-    this.tasksTable = this.getAdvancedTablePage(1, this.countPerPage);
+    this.tasksTable = this.getAdvancedTablePage(1, this.countPerPage, this.tasks);
     this.numPage = this.getAdvancedTableNumOfPage(this.countPerPage);
     
     this.visibleTask = true;
@@ -124,7 +127,7 @@ export class ProjectsPanelComponent implements OnInit {
   };
 
   public currentPage = 1;
-  private countPerPage = 15;
+  private countPerPage = 10;
   
 
   //public advancedTable = this.getAdvancedTablePage(1, this.countPerPage);
@@ -132,7 +135,7 @@ export class ProjectsPanelComponent implements OnInit {
   public changePage(page, force = false) {
     if (page !== this.currentPage || force) {
       this.currentPage = page;
-      this.tasksTable = this.getAdvancedTablePage(page, this.countPerPage);
+      this.tasksTable = this.getAdvancedTablePage(page, this.countPerPage, this.tasksTable);
     }
   }
 
@@ -152,16 +155,16 @@ export class ProjectsPanelComponent implements OnInit {
   }
 
   public getAdvancedTableNumOfPage(countPerPage) {
-    console.log(this.tasksTable)
+    console.log(this.projectsTable)
     return Math.ceil(this.tasks.length / countPerPage);
   }
 
   public getAdvancedTablePage(page, countPerPage) {
-    return this.tasks.slice((page - 1) * countPerPage, page * countPerPage);
+    return this.projects.slice((page - 1) * countPerPage, page * countPerPage);
   }
 
   public changeAdvanceSorting(order, index) {
-    this.tasks = this.sorting(this.tasks, order, index);
+    this.projects = this.sorting(this.projects, order, index);
   }
 
   private sorting(array, order, value) {

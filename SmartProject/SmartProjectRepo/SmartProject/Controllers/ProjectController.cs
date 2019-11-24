@@ -41,6 +41,7 @@ namespace SmartProject.Controllers
                                    {"projectName", pr.Name },
                                    {"projectManagerName", pr.ProjectManager.FullName },
                                    {"projectClosed", pr.CloseDate < DateTime.Today ? true : false },
+                                   {"projectAddedDate", pr.AddedDate },
                                    {"projectManagerId", pr.ProjectManager.Id }
                                })
                                .ToListAsync();
@@ -69,17 +70,19 @@ namespace SmartProject.Controllers
         }
 
         // GET: api/Project/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProjectModel>> GetProjectModel(int id)
+        [HttpGet]
+        [Route("GetProjectManagers")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetProjectManagers()
         {
-            var projectModel = await _context.Projects.FindAsync(id);
+            var query = await (from usr in _context.UserBasicInfo
+                               select new Dictionary<string, object>
+                               {
+                                   {"id", usr.Id },
+                                   {"fullName", usr.FullName }
+                               })
+                               .ToListAsync();
 
-            if (projectModel == null)
-            {
-                return NotFound();
-            }
-
-            return projectModel;
+            return query;
         }
 
         // PUT: api/Project/5
@@ -118,12 +121,55 @@ namespace SmartProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Route("AddNewProject")]
         public async Task<ActionResult<ProjectModel>> PostProjectModel(ProjectModel projectModel)
         {
-            _context.Projects.Add(projectModel);
-            await _context.SaveChangesAsync();
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
 
-            return CreatedAtAction("GetProjectModel", new { id = projectModel.Id }, projectModel);
+            ProjectModel newProject = new ProjectModel()
+            {
+                Name = projectModel.Name,
+                AddedDate = DateTime.Now
+            };
+
+            
+
+            UserBasicInfo projManager = _context.UserBasicInfo.FirstOrDefault(x => x.Id == projectModel.ProjectManager.Id);
+            newProject.ProjectManager = projManager;
+            UserBasicInfo projCreator = _context.UserBasicInfo.FirstOrDefault(x => x.Id == user.UserBasic.Id);
+            newProject.ProjectCreator = projCreator;
+
+            try
+            {
+                _context.Projects.Add(newProject);              
+                await _context.SaveChangesAsync();
+
+                ProjectUserModel projMan = new ProjectUserModel()
+                {
+                    ProjectId = newProject.Id,
+                    UserId = projectModel.ProjectManager.Id
+                };
+                _context.ProjectUser.Add(projMan);
+
+                if(projManager.Id != user.UserBasic.Id)
+                {
+                    ProjectUserModel projCre = new ProjectUserModel()
+                    {
+                        ProjectId = newProject.Id,
+                        UserId = user.UserBasic.Id
+                    };
+                    _context.ProjectUser.Add(projCre);
+                }
+                    
+                var result = await _context.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         // DELETE: api/Project/5
