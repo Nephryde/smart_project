@@ -20,5 +20,6 @@ namespace SmartProject.Models
         public ICollection<ProjectUserModel> ProjectUsers { get; set; }
         public ICollection<TaskCommentModel> TaskComments { get; set; }
         public ICollection<ReleaseUserModel> ReleaseUsers { get; set; }
+        public ICollection<LoggedWorkTimeModel> TimeLogs { get; set; }
     }
 }

@@ -1,17 +1,37 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ProjectService } from 'app/services/project.service';
 import { Router } from '@angular/router';
+import { trigger, transition, style, animate, group, state } from '@angular/animations';
+
+export interface PassToReleases {
+  projectId: number;
+  projectName: string;
+}
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  styleUrls: ['./projects.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('200ms ease-in', style({transform: 'translateY(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({transform: 'translateY(-100%)'}))
+      ])
+    ])
+  ]
 })
+
 export class ProjectsComponent implements OnInit {
 
   public readonly Array = Array;
   projects = [];
   projectsTable = [];
+  renderRelease: boolean = false;
+  passData: PassToReleases;
   public numPage;
   public projectHeaders = this.projectService.getProjectsHeaders();
   @HostBinding('class.mdl-grid') private readonly mdlGrid = true;
@@ -22,7 +42,9 @@ export class ProjectsComponent implements OnInit {
   @HostBinding('class.mdl-cell--top') private readonly mdlCellTop = true;
   @HostBinding('class.ui-tables') private readonly uiTables = true;
 
-  constructor(private projectService: ProjectService, private route: Router) { }
+  constructor(private projectService: ProjectService, private route: Router) { 
+    this.passData = { projectId: null, projectName: ''};
+  }
 
   async ngOnInit() {
     this.projects = await this.getProjectsData();
@@ -38,6 +60,20 @@ export class ProjectsComponent implements OnInit {
 
   addProjectRedirect() {
     this.route.navigate(['ui/add-project']);
+  }
+
+  renderReleases(projectId, index) {
+    if(this.renderRelease == false) {
+      this.passData.projectId = projectId;
+      this.passData.projectName = this.projects[index][1];
+      this.renderRelease = true;      
+    }
+    else {
+      this.renderRelease = false;
+      this.passData.projectId = projectId;
+      this.passData.projectName = this.projects[index][1];
+      setTimeout(() => this.renderRelease = true, 500);
+    }
   }
 
   public readonly sortOrder = {

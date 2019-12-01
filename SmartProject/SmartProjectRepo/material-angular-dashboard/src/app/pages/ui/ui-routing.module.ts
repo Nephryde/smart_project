@@ -12,9 +12,10 @@ import { RightSidebarComponent } from './right-sidebar';
 import { TablesComponent } from './tables';
 import { TypographyComponent } from './typography';
 import { TaskComponent } from './task/task.component';
-import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
 import { AddProjectComponent } from './add-new/add-project/add-project.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { LogTimeComponent } from './task/log-time/log-time.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,8 @@ import { ProjectsComponent } from './projects/projects.component';
           { path: 'projects', component: ProjectsComponent, pathMatch: 'full' },
           { path: 'add-project', component: AddProjectComponent, pathMatch: 'full' },
           { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
+          { path: 'task/log-time/:id', component: LogTimeComponent, pathMatch: 'full' },
+          { path: 'tasks/:id', component: TasksComponent, pathMatch: 'full' },
           { path: 'buttons', component: ButtonsComponent, pathMatch: 'full' },
           { path: 'cards', component: CardsComponent, pathMatch: 'full' },
           { path: 'colors', component: ColorsComponent, pathMatch: 'full' },

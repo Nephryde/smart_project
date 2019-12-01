@@ -73,9 +73,12 @@ export class ProjectService{
 
     getReleasesHeaders() {
         return [
-            'Wersja',
-            'Liczba zgłoszeń',
+            'Wersja',           
             'Data zamknięcia',
+            'Zgłoszenia',
+            'Zgłoszenia otwarte',
+            'Postęp',
+            'Działanie',
         ];
     }
 

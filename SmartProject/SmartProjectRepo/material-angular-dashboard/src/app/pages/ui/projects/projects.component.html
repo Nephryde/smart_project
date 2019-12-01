@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let row of projectsTable">
+        <tr *ngFor="let row of projectsTable; let i = index;">
           <td *ngFor="let cell of row.slice(0, 3)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
           <td class="mdl-data-table__cell--non-numeric" [ngSwitch]="row[3]">
               <span *ngSwitchCase="true" class="label label--mini color--green">Zakończone</span>
@@ -35,10 +35,14 @@
               <span class="cursor"><i class="material-icons header-icon table-icon">receipt</i><span class="add-text">Szczegóły</span></span> &nbsp;&nbsp;
               <span class="cursor"><i class="material-icons header-icon table-icon">edit</i>&nbsp;<span class="add-text">Edytuj</span></span>
           </td>
-          <td class="mdl-data-table__cell--non-numeric" style="cursor: pointer;"><i class="material-icons" >keyboard_arrow_down</i></td>             
+          <td (click)="renderReleases(row[0], i);" class="mdl-data-table__cell--non-numeric" style="cursor: pointer;"><i class="material-icons" >keyboard_arrow_down</i></td>             
         </tr>
         </tbody>
       </table>
     </base-card-body>
   </base-card>
+</div>
+
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone" *ngIf="renderRelease" [@slideInOut]>
+  <app-releases [retreivedData]="passData" ></app-releases>
 </div>

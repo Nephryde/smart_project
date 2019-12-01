@@ -14,9 +14,7 @@ import { TablesComponent, TablesService } from './tables';
 import { TypographyComponent } from './typography';
 import { UIRoutingModule } from './ui-routing.module';
 import { TaskComponent } from './task/task.component';
-import { TaskService } from './task/task.service';
 import { ProjectService } from 'app/services/project.service';
-import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
 import { AddProjectComponent } from './add-new/add-project/add-project.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -61,6 +59,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { ProjectsComponent } from './projects/projects.component';
+import { ReleasesComponent } from './projects/releases/releases.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { TaskService } from 'app/services/task.service';
+import { LogTimeComponent } from './task/log-time/log-time.component';
 
 @NgModule({
   imports: [
@@ -123,9 +125,11 @@ import { ProjectsComponent } from './projects/projects.component';
     TypographyComponent,
     TablesComponent,
     TaskComponent,
-    ProjectsPanelComponent,
     AddProjectComponent,
     ProjectsComponent,
+    ReleasesComponent,
+    TasksComponent,
+    LogTimeComponent,
   ],
   providers: [
     TablesService,

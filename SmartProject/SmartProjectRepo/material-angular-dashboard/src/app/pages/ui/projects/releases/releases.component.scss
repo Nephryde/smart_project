@@ -1,0 +1,89 @@
+.right {
+    margin-left: auto;
+    padding-left: 20px; 
+  }
+  
+  .add-content-text {
+    font-size: 17px;
+    font-weight: bold;
+    position: relative;
+    bottom: 5px;
+  }
+  
+  .add-text {
+    font-size: 14px;
+    position: relative;
+    bottom: 5px;
+    color: #999;
+  }
+  
+  .add-text:hover {
+    text-decoration: underline;
+    color: #03A9F4;
+  }
+
+  @import '~theme/helpers';
+
+.releases-table {
+  thead th {
+    color: rgba($color-white, 0.9);
+  }
+
+  tbody {
+    td:nth-child(1) {
+      width: 23%;
+    }
+
+    td:nth-child(2) {
+      width: 15%;
+    }
+
+    td:nth-child(3) {
+      width: 15%;
+    }
+
+    td:nth-child(4) {
+      width: 15%;
+    }
+
+    td:nth-child(5) {
+      width: 15%;
+    }
+
+    td:nth-child(6) {
+      width: 5%px;
+    }
+
+    .task-done {
+      padding-top: 6px !important;
+      padding-bottom: 0 !important;
+      color: $progress-main-color;
+
+      .material-icons,
+      span {
+        color: $color-white;
+        cursor: pointer;
+      }
+
+      .material-icons {
+        background: $color-red;
+        border-radius: 24px;
+        font-size: 16px;
+        padding: 2px;
+        margin-right: 4px;
+      }
+
+      span {
+        vertical-align: text-bottom;
+      }
+    }
+  }
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #f44336 !important;
+}
+
+.mat-progress-bar-buffer {
+  background: #E4E8EB !important;
+}

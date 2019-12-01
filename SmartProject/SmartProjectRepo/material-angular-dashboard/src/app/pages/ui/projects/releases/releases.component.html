@@ -1,0 +1,35 @@
+<base-card>
+    <base-card-title>
+      <h1 class="mdl-card__title-text">{{retreivedData.projectName}} - Wersje</h1>
+      <div class="right">
+        <a><i class="material-icons header-icon"><b>add</b></i><span class="add-content-text">Dodaj</span> </a>
+      </div>
+    </base-card-title>
+    <base-card-body class="no-padding">
+    <p *ngIf="!releases?.length > 0">Brak wersji dla tego projektu.</p>
+      <table class="mdl-data-table mdl-js-data-table" *ngIf="releases?.length > 0">
+        <thead>
+        <tr>
+          <th *ngFor="let header of releaseHeaders" class="mdl-data-table__cell--non-numeric">{{ header }}</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of releases; let i = index">
+                <td class="mdl-data-table__cell--non-numeric">{{row.releaseName}}</td>                    
+                <td class="mdl-data-table__cell--non-numeric">{{ row.deadlineDate | slice:0:10 }}</td>   
+                <td class="mdl-data-table__cell--non-numeric">{{row.tasksCount}}</td>   
+                <td class="mdl-data-table__cell--non-numeric">{{row.openedTasks}}</td>   
+                <td class="mdl-data-table__cell--non-numeric">
+                      <mat-progress-bar mode="determinate" value="{{100-((row.openedTasks/row.tasksCount)*100)}}" style="color:brown;"></mat-progress-bar>
+                </td> 
+                <td (click)="goToTasks(row.releaseId)" style="cursor: pointer; text-align: center;" class="mdl-data-table__cell--non-numeric">
+                    <span>Zgłoszenia</span>
+                    <i class="material-icons" >arrow_forward_ios</i>
+                </td>
+                
+            </tr>
+        </tbody>
+      </table>
+    </base-card-body>
+  </base-card>
+

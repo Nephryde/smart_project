@@ -1,0 +1,81 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+    <base-card>
+        <base-card-title>
+            <h1 class="mdl-card__title-text">Zagadnienia</h1>
+            <button (click)="expandFilters(filtersVisible)">Filtruj</button>
+            <div class="mdl-layout-spacer"></div>
+            <base-pagination [numPage]="numPage" [currentPage]="currentPage" (changePage)="changePage($event)">
+            </base-pagination>
+        </base-card-title>
+        <div style="background-color: #555;" *ngIf="filtersVisible" [@slideInOut]>
+            <div class="mdl-cell mdl-cell--12-col">
+                Filtruj po: &nbsp;
+                <mat-form-field>
+                    <mat-select [(value)]="selectedFilter">
+                        <mat-option value="0">Priorytet</mat-option>
+                        <mat-option value="1">Status</mat-option>
+                        <mat-option value="2">Typ zagadnienia</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field *ngIf="selectedFilter">
+                    <mat-select *ngIf="selectedFilter == 0" [(value)]="selectedFilter2">
+                        <ng-container *ngFor="let i of taskPriorityFilter">
+                            <mat-option value="{{i.value}}">{{i.name}}</mat-option>
+                        </ng-container>                      
+                    </mat-select>
+                    <mat-select *ngIf="selectedFilter == 1" [(value)]="selectedFilter2">
+                        <ng-container *ngFor="let i of taskStatusFilter">
+                            <mat-option value="{{i.value}}">{{i.name}}</mat-option>
+                        </ng-container>                      
+                    </mat-select>
+                    <mat-select *ngIf="selectedFilter == 2" [(value)]="selectedFilter2">
+                        <ng-container *ngFor="let i of taskTypeFilter">
+                            <mat-option value="{{i.value}}">{{i.name}}</mat-option>
+                        </ng-container>                      
+                    </mat-select>
+                </mat-form-field>
+                <button *ngIf="selectedFilter2" (click)="filterTable(selectedFilter, selectedFilter2)">Go</button>
+            </div>
+        </div>
+        <base-card-body class="no-padding">
+            <table class="mdl-data-table mdl-js-data-table sorting-table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let header of tasksHeaders; let i = index"
+                            class="mdl-data-table__cell--non-numeric" (click)="changeSorting(header, i)">
+                            <span>{{ header.name }}</span>
+                            <i *ngIf="header.sort !== null " class="material-icons sorting"
+                                [class.asc]="header.sort === sortOrder.asc"
+                                [class.active]="header.sort === sortOrder.asc || header.sort === sortOrder.desc">sort</i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of tasksTable" (click)="goToTaskDetails(row[3])">
+                        <td *ngFor="let cell of row.slice(3,5)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+                        <td *ngFor="let cell of Array(row[6])" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <span *ngFor="let genre of Array(row[7])"
+                                class="label label--mini color--{{ genreColors[genre] }}">{{ genre }}</span>
+                        </td>
+                        <td *ngFor="let cell of Array(row[9])" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+                        <td *ngFor="let cell of Array(row[10])" class="mdl-data-table__cell--non-numeric">{{ cell | slice:0:10}}</td>
+                        <td *ngFor="let cell of Array(row[11])" class="mdl-data-table__cell--non-numeric">{{ cell | slice:0:10}}</td>
+                        <td *ngFor="let cell of Array(row[8])" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <span *ngFor="let i of Array(row[1])" class="label label--mini label__availability"
+                                [class.background-color--secondary]="row[1] === 1"
+                                [class.color--amber]="row[1] === 5"
+                                [class.color--orange]="row[1] === 2"
+                                [class.background-color--primary]="row[1] === 4"
+                                [class.color--green]="row[1] === 3"></span>
+                            <span *ngFor="let i of Array(7 - row[1])"
+                                class="label label--mini label__availability"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </base-card-body>
+    </base-card>
+</div>

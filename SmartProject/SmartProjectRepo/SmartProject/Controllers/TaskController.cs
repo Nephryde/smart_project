@@ -73,6 +73,9 @@ namespace SmartProject.Controllers
                                where t.Release.Id == id
                                select new Dictionary<string, object>
                                {
+                                   {"taskPriotiryId", t.Priority.Id },
+                                   {"taskStatusId", t.Status.Id },
+                                   {"taskTypeId", t.Type.Id },
                                    {"taskId", t.Id },
                                    {"taskTitle", t.Title },
                                    {"taskAuthor", t.UserCreated.FullName },
@@ -82,7 +85,7 @@ namespace SmartProject.Controllers
                                    {"taskPriority", t.Priority.PriorityName },
                                    {"taskAddedDate", t.AddedDate },
                                    {"taskDeadlineDate", t.DeadlineDate },
-                                   {"taskModifiedDate", t.ModifiedDate }
+                                   {"taskModifiedDate", t.ModifiedDate }                             
                                })
                                .ToListAsync();
 
@@ -110,6 +113,13 @@ namespace SmartProject.Controllers
                                .ToListAsync();
 
             return query;
+        }
+
+        [HttpGet]
+        [Route("Activities")]
+        public async Task<ActionResult<IEnumerable<WorkActivityModel>>> GetTimeLogActivities()
+        {
+            return await _context.WorkActivities.ToListAsync();
         }
 
         // GET: api/Task/5

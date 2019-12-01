@@ -53,18 +53,20 @@ namespace SmartProject.Controllers
         [HttpGet("{id}")]
         [Route("Releases/{id}")]
         public async Task<ActionResult<IEnumerable<Object>>> GetProjectReleases(int id)
-        { 
-            var query = await (from r in _context.Releases
-                               join pr in _context.Projects on r.Project.Id equals pr.Id
-                               where r.Project.Id == id
-                               select new Dictionary<string, object>
-                               {                                 
-                                   {"releaseName", r.Name },                        
-                                   {"tasksCount", r.Tasks.Count },
-                                   {"deadlineDate", r.DeadlineDate },
-                                   {"releaseId", r.Id }
-                               })
-                               .ToListAsync();
+        {
+
+          var query = await (from r in _context.Releases
+                                   join pr in _context.Projects on r.Project.Id equals pr.Id
+                                   where r.Project.Id == id
+                                   select new Dictionary<string, object>
+                                   {
+                                       {"releaseName", r.Name },                        
+                                       {"tasksCount", r.Tasks.Count },
+                                       {"openedTasks", _context.Task.Count(x => x.Status.Id != 7 && x.Release.Id == r.Id && r.Project.Id == id) },
+                                       {"deadlineDate", r.DeadlineDate },
+                                       {"releaseId", r.Id }
+                                   })
+                                   .ToListAsync();
 
             return query;
         }

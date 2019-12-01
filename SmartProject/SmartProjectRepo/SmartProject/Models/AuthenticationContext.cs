@@ -31,6 +31,8 @@ namespace SmartProject.Models
         public DbSet<TaskCommentModel> TaskComments { get; set; }
         public DbSet<ReleaseModel> Releases { get; set; }
         public DbSet<ReleaseUserModel> ReleaseUser { get; set; }
+        public DbSet<WorkActivityModel> WorkActivities { get; set; }
+        public DbSet<LoggedWorkTimeModel> LoggedWorkTime { get; set; }
 
 
     }

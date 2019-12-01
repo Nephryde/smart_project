@@ -2,23 +2,21 @@
   <base-card>
     <base-card-title>
       <h2 class="mdl-card__title-text">{{ task?.type }} #{{task?.taskId}} - {{ task?.title }}</h2>
+      <a>Dziennik</a>
     </base-card-title>
     <base-card-body>
       <p>Dodane przez <a href="">{{ task?.authorName }}</a>.<span style="padding-left: 8px">Ostatnia aktualizacja: {{ task?.modifiedDate | slice:0:10}}</span></p>
       <div class="row">
-        <div class="mdl-cell mdl-cell--5-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+        <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
           <p><b>Status:</b> {{ task?.status }}</p>
           <p><b>Priorytet:</b> {{ task?.priority }}</p>
           <p><b>Przypisany do:</b><a href=""> {{ task?.userAssignedName }}</a></p>
           <p><b>Szacowany czas:</b> {{ task?.estimatedTime }}</p>
         </div>
-        <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone">
+        <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
           <p><b>Data rozpoczęcia:</b> {{ task?.addedDate | slice:0:10 }}</p>
           <p><b>Data oddania:</b> {{ task?.deadlineDate | slice:0:10 }}</p> 
-          <div class="progress" style="height: 18px;">
-              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': task?.progress*50 + '%'}"></div>
-            </div>
-            <br>
+          <p><b>Postęp:</b><mat-progress-bar mode="determinate" value="40" style="color:brown;"></mat-progress-bar></p>
           <p><b>Przepracowany czas:</b> PRZEPRACOWANY CZAS</p>
         </div>
       </div>
