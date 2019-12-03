@@ -4,11 +4,18 @@ import { environment } from 'environments/environment';
 import { Project } from 'app/models/project/project.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { User } from 'app/models/user.model';
-
+import { TaskActivity } from 'app/models/task/task-activity.model';
+import { TaskType } from 'app/models/task/task-type.model';
+import { TaskPriority } from 'app/models/task/task-priority.model';
+import { Release } from 'app/models/release/release.model';
 
 @Injectable()
 export class TaskService{
-    
+    public activityModel: TaskActivity;
+    public taskType = new TaskType();
+    public taskPriority = new TaskPriority();
+    public releaseModel = new Release();
+
     constructor(private http: HttpClient, private fb: FormBuilder) { }
 
     getTaskById = (id: number) => 
@@ -23,6 +30,54 @@ export class TaskService{
     getActivities() {
         return this.http.get(environment.apiBaseUrl + '/Task/Activities');
     }
+
+    getTaskTypes() {
+        return this.http.get(environment.apiBaseUrl + '/Task/TaskTypes');
+    }
+
+    getTaskPriorities() {
+        return this.http.get(environment.apiBaseUrl + '/Task/TaskPriorities');
+    }
+
+    getTaskStatuses() {
+        return this.http.get(environment.apiBaseUrl + '/Task/TaskStatuses');
+    }
+
+    postTask(form: FormGroup, usrAssigned: User) {
+        this.taskType.id = form.value.TypeId;
+        this.taskPriority.id =  form.value.PriorityId;
+        this.releaseModel.id = form.value.ReleaseId;
+
+        var body = {
+            Title: form.value.Name,
+            UserAssigned: usrAssigned,
+            EstimatedTime: form.value.EstimatedTime === '' ? null : form.value.EstimatedTime,
+            DeadlineDate: form.value.DateClosed === '' ? null : form.value.DateClosed,
+            Type: this.taskType,
+            Priority: this.taskPriority,
+            Release: this.releaseModel,
+            Description: form.value.Description === '' ? null : form.value.Description
+        }
+        console.log(body);
+
+        return this.http.post(environment.apiBaseUrl + '/Task/AddNewTask', body);
+    }
+
+    postLogWork(form: FormGroup){
+        this.activityModel = new TaskActivity();
+        this.activityModel.id = form.value.Activity;
+
+        var body = {
+            TaskId: form.value.TaskId,
+            Date: form.value.Date,
+            LoggedTime: form.value.LoggedTime,
+            WorkActivity: this.activityModel,
+            Comment: form.value.Comment
+        };
+        console.log(body);
+
+        return this.http.post(environment.apiBaseUrl + '/UserProfile/LogWork', body);
+    }    
 
     public getTaskStatusFilter(){
         return [

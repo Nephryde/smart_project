@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskService } from 'app/services/task.service';
 import { TaskActivity } from 'app/models/task/task-activity.model';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-log-time',
@@ -14,7 +15,7 @@ export class LogTimeComponent implements OnInit {
   taskId: number;
   logTimeActivities: TaskActivity[];
 
-  constructor(private route: Router, private fb: FormBuilder, private taskService: TaskService) { }
+  constructor(private route: Router, private fb: FormBuilder, private taskService: TaskService, private toastr: ToastrService) { }
 
   async ngOnInit() {
     const urlArr = this.route.url.split("/");
@@ -30,14 +31,28 @@ export class LogTimeComponent implements OnInit {
   }
 
   logTime() {
-    console.log(this.myForm);
+    this.taskService.postLogWork(this.myForm).subscribe(
+      (res:any) => {
+        console.log(res);
+        if(res){
+          this.myForm.reset();
+          this.toastr.success('Projekt został pomyślnie dodany.', 'Sukces', );
+        } else {
+            console.log("błąd");
+        }
+      },
+      err => {
+        this.toastr.error('Niepowodzenie', 'Wystąpił błąd.');
+        console.log(err);
+      }
+    );
   }
 
   initForm() {
     this.myForm = this.fb.group({
-      TaskId :[''],
+      TaskId :this.taskId,
       Date :['', Validators.required],
-      Time :['', Validators.required],
+      LoggedTime :['', Validators.required],
       Activity :['', Validators.required],
       Comment :['']
     });

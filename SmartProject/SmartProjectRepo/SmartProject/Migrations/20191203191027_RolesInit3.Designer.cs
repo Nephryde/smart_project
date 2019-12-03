@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartProject.Models;
 
 namespace SmartProject.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20191203191027_RolesInit3")]
+    partial class RolesInit3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,7 +319,7 @@ namespace SmartProject.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int?>("RoleIdId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -327,7 +329,7 @@ namespace SmartProject.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RoleIdId");
 
                     b.HasIndex("UserId");
 
@@ -649,9 +651,9 @@ namespace SmartProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartProject.Models.ProjectRolesModel", "Role")
+                    b.HasOne("SmartProject.Models.ProjectRolesModel", "RoleId")
                         .WithMany("ProjectUsers")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleIdId");
 
                     b.HasOne("SmartProject.Models.UserBasicInfo", "User")
                         .WithMany("ProjectUsers")

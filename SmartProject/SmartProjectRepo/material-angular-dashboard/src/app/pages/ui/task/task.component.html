@@ -2,7 +2,7 @@
   <base-card>
     <base-card-title>
       <h2 class="mdl-card__title-text">{{ task?.type }} #{{task?.taskId}} - {{ task?.title }}</h2>
-      <a>Dziennik</a>
+      <button (click)="redirectLogWork()">Dziennik</button>
     </base-card-title>
     <base-card-body>
       <p>Dodane przez <a href="">{{ task?.authorName }}</a>.<span style="padding-left: 8px">Ostatnia aktualizacja: {{ task?.modifiedDate | slice:0:10}}</span></p>

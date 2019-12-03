@@ -16,6 +16,8 @@ import { AddProjectComponent } from './add-new/add-project/add-project.component
 import { ProjectsComponent } from './projects/projects.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { LogTimeComponent } from './task/log-time/log-time.component';
+import { AddTaskComponent } from './add-new/add-task/add-task.component';
+import { ProjectManageComponent } from './projects/project-manage/project-manage.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { LogTimeComponent } from './task/log-time/log-time.component';
         component: CommonLayoutComponent,
         children: [
           { path: 'projects', component: ProjectsComponent, pathMatch: 'full' },
+          { path: 'project-manage/:id', component: ProjectManageComponent, pathMatch: 'full' },
           { path: 'add-project', component: AddProjectComponent, pathMatch: 'full' },
+          { path: 'add-task', component: AddTaskComponent, pathMatch: 'full' },
           { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
           { path: 'task/log-time/:id', component: LogTimeComponent, pathMatch: 'full' },
           { path: 'tasks/:id', component: TasksComponent, pathMatch: 'full' },

@@ -34,6 +34,7 @@ export class ProjectsComponent implements OnInit {
   passData: PassToReleases;
   public numPage;
   public projectHeaders = this.projectService.getProjectsHeaders();
+  userId: any;
   @HostBinding('class.mdl-grid') private readonly mdlGrid = true;
   @HostBinding('class.mdl-cell') private readonly mdlCell = true;
   @HostBinding('class.mdl-cell--12-col-desktop') private readonly mdlCell12ColDesktop = true;
@@ -52,6 +53,7 @@ export class ProjectsComponent implements OnInit {
     this.projects = this.projectService.mapToArray(this.projects);
     this.projectsTable = this.getAdvancedTablePage(1, this.countPerPage);
     this.numPage = this.getAdvancedTableNumOfPage(this.countPerPage);
+    this.userId = sessionStorage.getItem('userId');
   }
 
   getProjectsData() : Promise<any> {
@@ -76,13 +78,17 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  manageProject(projectId: number) {
+    this.route.navigate(['ui/project-manage/' + projectId]);
+  }
+
   public readonly sortOrder = {
     asc: 1,
     desc: -1,
   };
 
   public currentPage = 1;
-  private countPerPage = 4;
+  private countPerPage = 8;
 
   public changePage(page, force = false) {
     if (page !== this.currentPage || force) {

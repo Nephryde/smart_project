@@ -86,6 +86,11 @@ export class TasksComponent implements OnInit {
     this.route.navigate(['ui/task/', id]);
   }
 
+  addNewTask() {
+    sessionStorage.setItem('releaseId', this.releaseId.toString());
+    this.route.navigate(['ui/add-task']);
+  }
+
   public readonly sortOrder = {
     asc: 1,
     desc: -1,

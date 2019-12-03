@@ -22,7 +22,7 @@
                 <td class="mdl-data-table__cell--non-numeric">
                       <mat-progress-bar mode="determinate" value="{{100-((row.openedTasks/row.tasksCount)*100)}}" style="color:brown;"></mat-progress-bar>
                 </td> 
-                <td (click)="goToTasks(row.releaseId)" style="cursor: pointer; text-align: center;" class="mdl-data-table__cell--non-numeric">
+                <td (click)="goToTasks(row.releaseId, row.releaseName)" style="cursor: pointer; text-align: center;" class="mdl-data-table__cell--non-numeric">
                     <span>Zgłoszenia</span>
                     <i class="material-icons" >arrow_forward_ios</i>
                 </td>

@@ -26,7 +26,8 @@ export class ReleasesComponent implements OnInit {
     return this.projectService.getProjectReleases(projectId).toPromise();
   }
 
-  goToTasks(releaseId: number) {
+  goToTasks(releaseId: number, releaseName: string) {
+    sessionStorage.setItem('releaseName', releaseName);
     this.router.navigate(['ui/tasks/', releaseId]);
   }
 

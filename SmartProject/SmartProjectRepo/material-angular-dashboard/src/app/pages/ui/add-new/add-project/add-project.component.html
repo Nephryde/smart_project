@@ -7,8 +7,9 @@
       <form [formGroup]="myForm" (submit)="addNewProject()">
         <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--6-col-phone form__article">            
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-            <input class="mdl-textfield__input" type="text" formControlName="Name">
-            <label class="mdl-textfield__label">Nazwa projektu</label>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Nazwa projektu" formControlName="Name">
+            </mat-form-field>          
           </div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
             <mat-form-field>

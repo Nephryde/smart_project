@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartProject.Models;
@@ -16,10 +17,12 @@ namespace SmartProject.Controllers
     public class TaskController : ControllerBase
     {
         private readonly AuthenticationContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TaskController(AuthenticationContext context)
+        public TaskController(AuthenticationContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Task/Task/5
@@ -60,6 +63,41 @@ namespace SmartProject.Controllers
             var x = query;
 
             return query;
+        }
+
+        [HttpPost]
+        [Route("AddNewTask")]
+        public async Task<ActionResult<TaskModel>> PostTaskModel(TaskModel taskModel)
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            TaskModel newTask = new TaskModel()
+            {
+                Title = taskModel.Title,
+                UserCreated = _context.UserBasicInfo.FirstOrDefault(x => x.Id == user.UserBasic.Id),
+                UserAssigned = _context.UserBasicInfo.FirstOrDefault(x => x.Id == taskModel.UserAssigned.Id),
+                EstimatedTime = taskModel.EstimatedTime,
+                AddedDate = DateTime.Today,
+                DeadlineDate = taskModel.DeadlineDate,
+                Type = _context.TaskTypes.FirstOrDefault(x => x.Id == taskModel.Type.Id),
+                Status = _context.TaskStatuses.FirstOrDefault(x => x.Id == 1),
+                Priority = _context.TaskPriorities.FirstOrDefault(x => x.Id == taskModel.Priority.Id),
+                Release = _context.Releases.FirstOrDefault(x => x.Id == taskModel.Release.Id),
+                Description = taskModel.Description
+            };
+
+            try
+            {
+                _context.Task.Add(newTask);
+                var result = await _context.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         // GET: api/Task/Task/5
@@ -122,85 +160,25 @@ namespace SmartProject.Controllers
             return await _context.WorkActivities.ToListAsync();
         }
 
-        // GET: api/Task/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<TaskCommentModel>> GetTaskCommentModel(int id)
-        //{
-        //    var taskCommentModel = await _context.TaskComments.FindAsync(id);
-
-        //    if (taskCommentModel == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return taskCommentModel;
-        //}
-
-        // PUT: api/Task/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTaskCommentModel(int id, TaskCommentModel taskCommentModel)
+        [HttpGet]
+        [Route("TaskTypes")]
+        public async Task<ActionResult<IEnumerable<TaskTypeModel>>> GetTaskTypes()
         {
-            if (id != taskCommentModel.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(taskCommentModel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TaskCommentModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await _context.TaskTypes.ToListAsync();
         }
 
-        // POST: api/Task
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<TaskCommentModel>> PostTaskCommentModel(TaskCommentModel taskCommentModel)
+        [HttpGet]
+        [Route("TaskStatuses")]
+        public async Task<ActionResult<IEnumerable<TaskStatusModel>>> GetTaskStatutes()
         {
-            _context.TaskComments.Add(taskCommentModel);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTaskCommentModel", new { id = taskCommentModel.Id }, taskCommentModel);
+            return await _context.TaskStatuses.ToListAsync();
         }
 
-
-
-        // DELETE: api/Task/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TaskCommentModel>> DeleteTaskCommentModel(int id)
+        [HttpGet]
+        [Route("TaskPriorities")]
+        public async Task<ActionResult<IEnumerable<TaskPriorityModel>>> GetTaskPriorities()
         {
-            var taskCommentModel = await _context.TaskComments.FindAsync(id);
-            if (taskCommentModel == null)
-            {
-                return NotFound();
-            }
-
-            _context.TaskComments.Remove(taskCommentModel);
-            await _context.SaveChangesAsync();
-
-            return taskCommentModel;
-        }
-
-        private bool TaskCommentModelExists(int id)
-        {
-            return _context.TaskComments.Any(e => e.Id == id);
+            return await _context.TaskPriorities.ToListAsync();
         }
     }
 }

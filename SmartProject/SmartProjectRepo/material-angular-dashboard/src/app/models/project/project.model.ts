@@ -1,8 +1,11 @@
-import { User } from "../user.model";
-
 export class Project {
-    name: string;
-    addedDate: Date;
-    closeDate: Date;
-    projectManager: User;
+    projectId: number;
+    projectName: string;
+    projectManagerName: string;
+    projectCreatorName: string;
+    projectAddedDate: Date;
+    projectClosedDate: Date;
+    projectClosed: boolean;
+    projectManagerId: number;
+    projectCreatorId: number;
 }

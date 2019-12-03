@@ -63,6 +63,9 @@ import { ReleasesComponent } from './projects/releases/releases.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskService } from 'app/services/task.service';
 import { LogTimeComponent } from './task/log-time/log-time.component';
+import { AddTaskComponent } from './add-new/add-task/add-task.component';
+import { ProjectManageComponent } from './projects/project-manage/project-manage.component';
+import { ProjectUsersComponent } from './projects/project-manage/project-users/project-users.component';
 
 @NgModule({
   imports: [
@@ -130,6 +133,9 @@ import { LogTimeComponent } from './task/log-time/log-time.component';
     ReleasesComponent,
     TasksComponent,
     LogTimeComponent,
+    AddTaskComponent,
+    ProjectManageComponent,
+    ProjectUsersComponent,
   ],
   providers: [
     TablesService,

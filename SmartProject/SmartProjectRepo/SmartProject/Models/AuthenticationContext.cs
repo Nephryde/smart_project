@@ -33,7 +33,7 @@ namespace SmartProject.Models
         public DbSet<ReleaseUserModel> ReleaseUser { get; set; }
         public DbSet<WorkActivityModel> WorkActivities { get; set; }
         public DbSet<LoggedWorkTimeModel> LoggedWorkTime { get; set; }
-
+        public DbSet<ProjectRolesModel> ProjectRoles { get; set; }
 
     }
 }

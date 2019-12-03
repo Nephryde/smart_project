@@ -1,0 +1,27 @@
+<div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+    <base-card>
+        <base-card-title>
+            <h2 class="mdl-card__title-text">Członkowie</h2>
+            <div class="mdl-card__subtitle">Role członków projektu</div>
+        </base-card-title>
+        <base-card-body class="no-padding">
+            <mat-selection-list #roles (click)="onRoleChange()">
+                <mat-list-option *ngFor="let role of rolesList" [value]="role.id">
+                    {{role.name}}
+                </mat-list-option>
+            </mat-selection-list>
+            <hr>
+        </base-card-body>
+    </base-card>
+</div>
+<div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+        <base-card>
+        <base-card-title>
+        </base-card-title>
+        <base-card-body class="no-padding">
+            <div *ngFor="let user of filteredProjectUsers">
+                {{user.userFullName}}
+            </div>
+        </base-card-body>
+    </base-card>
+</div>

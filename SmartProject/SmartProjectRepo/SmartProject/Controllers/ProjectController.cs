@@ -42,7 +42,8 @@ namespace SmartProject.Controllers
                                    {"projectManagerName", pr.ProjectManager.FullName },
                                    {"projectClosed", pr.CloseDate < DateTime.Today ? true : false },
                                    {"projectAddedDate", pr.AddedDate },
-                                   {"projectManagerId", pr.ProjectManager.Id }
+                                   {"projectManagerId", pr.ProjectManager.Id },
+                                   {"projectCreatorId", pr.ProjectCreator.Id }
                                })
                                .ToListAsync();
 
@@ -50,6 +51,29 @@ namespace SmartProject.Controllers
         }
 
         [HttpGet]
+        [Route("GetProjectInfo/{id}")]
+        public async Task<ActionResult<Object>> GetProjectInfo(int id)
+        {
+            var query = await (from pr in _context.Projects
+                               join pu in _context.ProjectUser on pr.Id equals pu.ProjectId
+                               where pr.Id == id
+                               select new Dictionary<string, object>
+                               {
+                                   {"projectId", pr.Id },
+                                   {"projectName", pr.Name },
+                                   {"projectManagerName", pr.ProjectManager.FullName },
+                                   {"projectCreatorName", pr.ProjectCreator.FullName },
+                                   {"projectAddedDate", pr.AddedDate },
+                                   {"projectClosedDate", pr.CloseDate },
+                                   {"projectClosed", pr.CloseDate < DateTime.Today ? true : false },
+                                   {"projectManagerId", pr.ProjectManager.Id },
+                                   {"projectCreatorId", pr.ProjectCreator.Id }
+                               })
+                              .FirstOrDefaultAsync();
+
+            return query;
+        }
+
         [HttpGet("{id}")]
         [Route("Releases/{id}")]
         public async Task<ActionResult<IEnumerable<Object>>> GetProjectReleases(int id)
@@ -71,7 +95,8 @@ namespace SmartProject.Controllers
             return query;
         }
 
-        // GET: api/Project/5
+
+
         [HttpGet]
         [Route("GetProjectManagers")]
         public async Task<ActionResult<IEnumerable<Object>>> GetProjectManagers()
@@ -81,6 +106,40 @@ namespace SmartProject.Controllers
                                {
                                    {"id", usr.Id },
                                    {"fullName", usr.FullName }
+                               })
+                               .ToListAsync();
+
+            return query;
+        }
+
+        [HttpGet]
+        [Route("GetProjectRoles")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetProjectRoles()
+        {
+            var query = await (from roles in _context.ProjectRoles
+                               select new Dictionary<string, object>
+                               {
+                                   {"id", roles.Id },
+                                   {"name", roles.Name }
+                               })
+                               .ToListAsync();
+
+            return query;
+        }
+
+        [HttpGet("{id}")]
+        [Route("GetProjectUsers/{id}")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetProjectUsers(int id)
+        {
+            var query = await (from pr in _context.Projects
+                               join prus in _context.ProjectUser on pr.Id equals prus.ProjectId
+                               join usr in _context.UserBasicInfo on prus.UserId equals usr.Id
+                               where pr.Id == id
+                               select new Dictionary<string, object>
+                               {
+                                   {"userId", usr.Id },
+                                   {"userFullName", usr.FullName },
+                                   {"roleId", prus.Role.Id }
                                })
                                .ToListAsync();
 

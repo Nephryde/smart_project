@@ -3,6 +3,7 @@
         <base-card-title>
             <h1 class="mdl-card__title-text">Zagadnienia</h1>
             <button (click)="expandFilters(filtersVisible)">Filtruj</button>
+            <button (click)="addNewTask()">Dodaj</button>
             <div class="mdl-layout-spacer"></div>
             <base-pagination [numPage]="numPage" [currentPage]="currentPage" (changePage)="changePage($event)">
             </base-pagination>

@@ -36,6 +36,12 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
       (res:any) => {
         this.loading = false;
         localStorage.setItem('token', res.token);
+        this.service.getUserId().subscribe(
+          (res:any) => {
+            sessionStorage.setItem('userId', res);
+            console.log(sessionStorage);
+          }
+        )
         this.router.navigateByUrl('/#/app/dashboard');
       },
       err => {
@@ -45,6 +51,6 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
         else
           console.log(err); 
       }
-    );
+    );   
   }
 }

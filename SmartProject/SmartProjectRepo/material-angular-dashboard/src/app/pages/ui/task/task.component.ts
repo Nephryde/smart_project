@@ -36,4 +36,8 @@ export class TaskComponent implements OnInit {
     })
   }
 
+  redirectLogWork() {
+    this.route.navigate(['ui/task/log-time/', this.id]);
+  }
+
 }

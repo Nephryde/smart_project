@@ -87,7 +87,6 @@ namespace SmartProject.Controllers
 
         [HttpGet]
         [Route("GetCurrentUser")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<Object> GetCurrentUser()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
@@ -99,6 +98,17 @@ namespace SmartProject.Controllers
                 Id = user.UserBasic.Id,
                 FullName = user.UserBasic.FullName
             };
+        }
+
+        [HttpGet]
+        [Route("GetCurrentUserId")]
+        public async Task<int> GetCurrentUserId()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            return user.UserBasic.Id;
         }
     }
 }

@@ -6,7 +6,7 @@ export class PieChartService {
     return [
       {
         key: 'Coding',
-        hours: 9,
+        hours: 8,
       },
       {
         key: 'Eating',
