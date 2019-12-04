@@ -74,10 +74,6 @@ export class YourTasksComponent implements OnInit {
     'Zadanie': 'orange',
     'Modyfikacja': 'purple',
     'Błąd': 'dark-gray',
-    'Hotfix': 'green',
-    'Novel': 'teal',
-    'Fantasy': 'red',
-    'Adventure': 'light-blue',
   };
 
   public currentPage = 1;

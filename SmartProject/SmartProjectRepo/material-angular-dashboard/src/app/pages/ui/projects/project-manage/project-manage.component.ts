@@ -12,6 +12,7 @@ export class ProjectManageComponent implements OnInit {
   projectId: number;
   project: Project;
   loaded = false;
+  showProjectUsers: boolean;
   constructor(private route: Router, private projectService: ProjectService) { }
 
   async ngOnInit() {
@@ -25,6 +26,14 @@ export class ProjectManageComponent implements OnInit {
 
   getReleasesData(projectId: number) : Promise<any> {
     return this.projectService.getProjectInfo(projectId).toPromise();
+  }
+
+  redirectAddRelease(id: number) {
+    this.route.navigate(['ui/add-release/', id]);
+  }
+
+  renderProjectUsers() {
+    this.showProjectUsers = true;
   }
 
 }

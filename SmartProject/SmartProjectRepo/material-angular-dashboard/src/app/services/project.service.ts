@@ -7,6 +7,7 @@ import { User } from 'app/models/user.model';
 
 @Injectable()
 export class ProjectService {
+  public projectModel = new Project();
 
   constructor(private http: HttpClient, private fb: FormBuilder) { }
 
@@ -46,6 +47,18 @@ export class ProjectService {
     console.log(body);
 
     return this.http.post(environment.apiBaseUrl + '/Project/AddNewProject', body);
+  }
+
+  addRelease(form: FormGroup) {
+    this.projectModel.Id = form.value.ProjectId;
+
+    var body = {
+      Name: form.value.Name,
+      Project: this.projectModel,
+      DeadlineDate: form.value.DeadlineDate === '' ? null : form.value.DeadlineDate,
+    }
+
+    return this.http.post(environment.apiBaseUrl + '/Project/AddNewRelease', body);
   }
 
   getProjectsHeaders() {
@@ -88,7 +101,7 @@ export class ProjectService {
       'Zgłoszenia',
       'Zgłoszenia otwarte',
       'Postęp',
-      'Działanie',
+      'Przejdź do zgłoszeń',
     ];
   }
 

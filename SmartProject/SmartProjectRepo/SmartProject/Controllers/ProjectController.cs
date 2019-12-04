@@ -31,7 +31,7 @@ namespace SmartProject.Controllers
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
             var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
-            
+
             var query = await (from pr in _context.Projects
                                join pu in _context.ProjectUser on pr.Id equals pu.ProjectId
                                where pu.UserId == user.UserBasic.Id
@@ -45,6 +45,7 @@ namespace SmartProject.Controllers
                                    {"projectManagerId", pr.ProjectManager.Id },
                                    {"projectCreatorId", pr.ProjectCreator.Id }
                                })
+                               .Distinct()
                                .ToListAsync();
 
             return query;
@@ -176,6 +177,31 @@ namespace SmartProject.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost]
+        [Route("AddNewRelease")]
+        public async Task<ActionResult<ReleaseModel>> PostReleaseModel(ReleaseModel releaseModel)
+        {
+            ReleaseModel newRelease = new ReleaseModel()
+            {
+                Name = releaseModel.Name,
+                Project = _context.Projects.FirstOrDefault(x => x.Id == releaseModel.Project.Id),
+                AddedDate = DateTime.Today,
+                DeadlineDate = releaseModel.DeadlineDate
+            };
+
+            try
+            {
+                _context.Releases.Add(newRelease);           
+                var result = await _context.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         // POST: api/Project

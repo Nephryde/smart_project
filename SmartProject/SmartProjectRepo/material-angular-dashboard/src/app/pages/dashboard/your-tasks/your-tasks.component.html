@@ -31,10 +31,12 @@
           <td *ngFor="let cell of row[5].slice(1,2)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
           <td class="mdl-data-table__cell--non-numeric">
             <span *ngFor="let item of Array(row[5][0])" class="label label--mini label__availability"
-                  [class.background-color--secondary]="row[5][0] === 1"
-                  [class.color--orange]="row[5][0] === 2"
-                  [class.background-color--primary]="row[5][0] === 4"
-                  [class.color--green]="row[5][0] === 3"></span>
+                  [class.color--red]="row[5][0] === 1"
+                  [class.color--amber]="row[5][0] === 2"
+                  [class.background-color--primary]="row[5][0] === 4 || row[5][0] === 5 || row[5][0] === 6"
+                  [class.color--orange]="row[5][0] === 3"
+                  [class.color--green]="row[5][0] === 7"></span>
+                  
             <span *ngFor="let i of Array(8 - row[5][0])" class="label label--mini label__availability"></span>
           </td>
           <!-- <td class="mdl-data-table__cell--non-numeric">project</td> -->

@@ -52,10 +52,10 @@
             <hr class="clear">
             <h5 class="header">Działania</h5>
             <p>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" (click)="redirectAddRelease(projectId)">
                     Dodaj wersję/sprint
                 </button>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" (click)="renderProjectUsers()">
                     Członkowie
                 </button>
                 <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal">
@@ -73,4 +73,4 @@
         </base-card-body>
     </base-card>
 </div>
-<app-project-users [projectId]="projectId"></app-project-users>
+<app-project-users *ngIf="showProjectUsers" [projectId]="projectId"></app-project-users>

@@ -87,3 +87,23 @@
 .mat-progress-bar-buffer {
   background: #E4E8EB !important;
 }
+
+.task-done {
+  padding-top: 6px !important;
+  padding-bottom: 0 !important;
+  color: $progress-main-color;
+
+  .material-icons,
+  span {
+    color: $color-white;
+    cursor: pointer;
+  }
+
+  .material-icons {
+    background: $color-red;
+    border-radius: 24px;
+    font-size: 16px;
+    padding: 2px;
+    margin-right: 4px;
+  }
+}

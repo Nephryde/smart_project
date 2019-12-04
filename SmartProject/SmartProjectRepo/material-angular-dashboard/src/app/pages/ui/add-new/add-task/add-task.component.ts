@@ -81,7 +81,7 @@ export class AddTaskComponent implements OnInit {
         console.log(res);
         if(res){
           this.myForm.reset();
-          this.toastr.success('Projekt został pomyślnie dodany.', 'Sukces', );
+          this.toastr.success('Zgłoszenie zostało pomyślnie dodane.', 'Sukces', );
         } else {
             console.log("błąd");
         }

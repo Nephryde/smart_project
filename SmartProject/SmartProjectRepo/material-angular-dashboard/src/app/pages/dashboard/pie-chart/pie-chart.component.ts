@@ -37,7 +37,7 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
       ...rawData.map(job => ({ key: job.key, end: job.hours, y: 0 })),
       {
         key: 'Pending',
-        y: 23.9,
+        y: 8,
       },
     ];
 
@@ -62,7 +62,7 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
             { inner: innerRadius, outer: outerRadius },
         ])
         .showLegend(false)
-        .title('0 hours')
+        .title('0 godzin')
         .titleOffset(10);
 
       pieChart.tooltip.enabled(true)
@@ -73,7 +73,7 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
             return null;
           }
           d3.selectAll('.nvtooltip').classed('mdl-tooltip', true);
-          return `${d.animatedData.y} hours`;
+          return `${d.animatedData.y} godzin`;
         });
 
       const container = d3.select(this.el.nativeElement)
@@ -92,7 +92,7 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
             if (d[i].y < d[i].end) {
               d[i].y += 1;
               d[d.length - 1].y -= 1;
-              pieChart.title(`${h + 1} hours`);
+              pieChart.title(`${h + 1} godzin`);
               h += 1;
             } else {
               i += 1;
