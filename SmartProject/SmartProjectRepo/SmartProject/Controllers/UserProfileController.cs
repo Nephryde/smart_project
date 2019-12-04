@@ -24,6 +24,43 @@ namespace SmartProject.Controllers
             _userManager = userManager;
         }
 
+        [HttpPost]
+        [Route("LogWork")]
+        public async Task<ActionResult<LoggedWorkTimeModel>> PostProjectModel(LoggedWorkTimeModel loggedWorkModel)
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            LoggedWorkTimeModel newLog = new LoggedWorkTimeModel()
+            {
+                LoggedTime = loggedWorkModel.LoggedTime,
+                Date = loggedWorkModel.Date,
+                UserId = user.UserBasic.Id,
+                TaskId = loggedWorkModel.TaskId,
+                Comment = loggedWorkModel.Comment
+            };
+
+
+
+            WorkActivityModel activity = _context.WorkActivities.FirstOrDefault(x => x.Id == loggedWorkModel.WorkActivity.Id);
+            newLog.WorkActivity = activity;
+            //UserBasicInfo projCreator = _context.UserBasicInfo.FirstOrDefault(x => x.Id == user.UserBasic.Id);
+            //newProject.ProjectCreator = projCreator;
+
+            try
+            {
+                _context.LoggedWorkTime.Add(newLog);              
+
+                var result = await _context.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         [HttpGet]
         [Authorize]
         //GET : api/UserProfile

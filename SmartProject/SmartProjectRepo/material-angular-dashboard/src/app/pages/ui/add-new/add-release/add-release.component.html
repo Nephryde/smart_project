@@ -1,0 +1,33 @@
+<div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+    <base-card>
+      <base-card-title>
+        <h5 class="mdl-card__title-text text-color--white">Nowa wersja/sprint</h5>
+      </base-card-title>
+      <base-card-body>
+        <form [formGroup]="myForm" (submit)="addNewRelease()">
+          <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--6-col-phone form__article">            
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nazwa wersji/sprintu" formControlName="Name">
+              </mat-form-field>          
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                <mat-form-field>
+                    <input class="mdl-textfield__input" matInput [matDatepicker]="picker"
+                        placeholder="Data oddania" formControlName="DeadlineDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>      
+          <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone form__article">   
+            <button type="submit" [disabled]="!myForm.valid"class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal">
+              <i class="material-icons">add</i>
+              DODAJ
+            </button>
+            </div>
+        </form>
+      </base-card-body>
+    </base-card>
+  </div>
+  

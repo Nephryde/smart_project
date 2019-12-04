@@ -50,4 +50,8 @@ export class UserService {
   getUserInfo() {
     return this.http.get(this.BaseURI + '/UserProfile');
   }
+
+  getUserId() {
+    return this.http.get(this.BaseURI + '/ApplicationUser/GetCurrentUserId');
+  }
 }

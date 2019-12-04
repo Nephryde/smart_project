@@ -1,12 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
-import { trigger, transition, animate, style } from '@angular/animations'
-import { ProjectService } from 'app/services/project.service';
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { TaskService } from 'app/services/task.service';
 import { Router } from '@angular/router';
+import { trigger, style, transition, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-projects-panel',
-  templateUrl: './projects-panel.component.html',
-  styleUrls: ['./projects-panel.component.scss'],
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.scss'],
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
@@ -16,36 +16,24 @@ import { Router } from '@angular/router';
       transition(':leave', [
         animate('200ms ease-in', style({transform: 'translateX(-100%)'}))
       ])
-    ]),
-    trigger('slideInOutRight', [
-      transition(':enter', [
-        style({transform: 'translateX(100%)'}),
-        animate('200ms ease-in', style({transform: 'translateX(0%)'}))
-      ]),
-      transition(':leave', [
-        animate('200ms ease-in', style({transform: 'translateX(100%)'}))
-      ])
     ])
   ]
 })
+export class TasksComponent implements OnInit {
 
-export class ProjectsPanelComponent implements OnInit {
   public readonly Array = Array;
-  projects = [];
-  releases = [];
+  releaseId: number;
   tasks = [];
+  stableTasks = [];
   tasksTable = [];
-  projectName: string;
-  releaseName: string;
   public numPage;
-  public releaseHeaders = this.projectService.getReleasesHeaders();
-  public tasksHeaders = this.projectService.getReleaseTasksHeaders();
-  public projectHeaders = this.projectService.getProjectsHeaders();
-  renderRelease: boolean = false; 
-  renderTask: boolean = false;
-  visibleProject: boolean = true;
-  visibleRelease: boolean = false;
-  visibleTask: boolean = false;
+  public tasksHeaders = this.taskService.getReleaseTasksHeaders();
+  selectedFilter: any;
+  public taskTypeFilter = this.taskService.getTaskTypeFilter();
+  public taskPriorityFilter = this.taskService.getTaskPriorityFilter();
+  public taskStatusFilter = this.taskService.getTaskStatusFilter();
+  filteredTable = [];
+  public filtersVisible: boolean = false;
 
   @HostBinding('class.mdl-grid') private readonly mdlGrid = true;
   @HostBinding('class.mdl-cell') private readonly mdlCell = true;
@@ -55,57 +43,52 @@ export class ProjectsPanelComponent implements OnInit {
   @HostBinding('class.mdl-cell--top') private readonly mdlCellTop = true;
   @HostBinding('class.ui-tables') private readonly uiTables = true;
 
-
-  constructor(private projectService: ProjectService, private route: Router) { }
+  constructor(private taskService: TaskService, private route: Router) { }
 
   async ngOnInit() {
-    this.projects = await this.getProjectsData();
-    this.projects = this.projectService.mapToArray(this.projects);
-    console.log(this.projects);
-  }
-
-  getProjectsData() : Promise<any> {
-    return this.projectService.getProjects().toPromise();
-  }
-
-  getReleasesData(projectId: number) : Promise<any> {
-    return this.projectService.getProjectReleases(projectId).toPromise();
-  }
-
-  addProjectRedirect() {
-    this.route.navigate(['ui/add-project']);
-  }
-
-  async renderReleases(projectId, index) {
-    this.visibleRelease = false;
-    this.releases = await this.getReleasesData(projectId);
-    this.releases = this.projectService.mapToArray(this.releases);
-    this.projectName = this.projects[index][1];
-    this.visibleRelease = true;
-    console.log(this.releases);
-  }
-
-  async renderTasks(releaseId, index) {
-    this.tasks = await this.getReleaseTasksData(releaseId);
-    this.tasks = this.projectService.mapToArray(this.tasks);
-    this.releaseName = this.releases[index][0];
+    const urlArr = this.route.url.split("/");
+    this.releaseId = Number(urlArr[3]);
+    this.tasks = await this.getData();
+    this.tasks = this.taskService.mapToArray(this.tasks);
+    this.stableTasks = this.tasks;
+    console.log(this.tasks);
     this.tasksTable = this.getAdvancedTablePage(1, this.countPerPage);
     this.numPage = this.getAdvancedTableNumOfPage(this.countPerPage);
-    
-    this.visibleTask = true;
-    this.visibleProject = false;
-    this.visibleRelease = false;
     console.log(this.tasksTable);
   }
+  
 
-  getReleaseTasksData(releaseId: number) : Promise<any> {
-    return this.projectService.getReleaseTasks(releaseId).toPromise();
+  getData() : Promise<any> {
+    return this.taskService.getReleaseTasks(this.releaseId).toPromise();
   }
 
-  slideToProjects() {
-    this.visibleProject = true;
-    this.visibleRelease = true;
-    this.visibleTask = false;
+  async filterTable(filter, filterType) {
+    this.tasks = this.stableTasks;
+    this.filteredTable = [];
+    this.tasks.forEach(element => {
+      if(element[filter] == filterType)
+        this.filteredTable.push(element);
+    });
+    this.tasks = this.filteredTable;
+    this.tasksTable = this.getAdvancedTablePage(1, this.countPerPage);
+    this.numPage = this.getAdvancedTableNumOfPage(this.countPerPage);
+    console.log(this.filteredTable);
+  }
+
+  expandFilters(visible){
+    if(visible)
+      this.filtersVisible = false;
+    else if(!visible)
+      this.filtersVisible = true;
+  }
+
+  goToTaskDetails(id:number){
+    this.route.navigate(['ui/task/', id]);
+  }
+
+  addNewTask() {
+    sessionStorage.setItem('releaseId', this.releaseId.toString());
+    this.route.navigate(['ui/add-task']);
   }
 
   public readonly sortOrder = {
@@ -124,7 +107,7 @@ export class ProjectsPanelComponent implements OnInit {
   };
 
   public currentPage = 1;
-  private countPerPage = 15;
+  private countPerPage = 4;
   
 
   //public advancedTable = this.getAdvancedTablePage(1, this.countPerPage);
@@ -176,4 +159,5 @@ export class ProjectsPanelComponent implements OnInit {
     };
     return array.sort(compareFunction);
   }
+
 }

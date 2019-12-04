@@ -22,5 +22,6 @@ namespace SmartProject.Models
         public ReleaseModel Release { get; set; }
         public string Description { get; set; }
         public ICollection<TaskCommentModel> TaskComments { get; set; }
+        public ICollection<LoggedWorkTimeModel> TimeLogs { get; set; }
     }
 }

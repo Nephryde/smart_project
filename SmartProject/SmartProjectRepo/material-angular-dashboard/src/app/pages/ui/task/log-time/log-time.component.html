@@ -1,0 +1,58 @@
+<div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h5 class="mdl-card__title-text text-color--white">Przepracowany czas</h5>
+    </base-card-title>
+    <base-card-body>
+      <form [formGroup]="myForm" (submit)="logTime()" class="form form--basic">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone form__article">
+            <div class="mdl-textfield mdl-js-textfield full-size">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Zgłoszenie" value="#123" disabled>
+              </mat-form-field>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield full-size">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Czas" type="number" step="0.01" max="24" formControlName="LoggedTime" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone form__article">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Wybierz dzień" formControlName="Date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+              <mat-form-field>
+                <mat-label>Aktywność</mat-label>
+                <mat-select formControlName="Activity" required>
+                  <mat-option *ngFor="let activity of logTimeActivities" [value]="activity.id">
+                    {{activity.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>         
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone form__article">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Komentarz"></textarea>
+            </mat-form-field>
+          </div>
+        </div>       
+        <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone form__article">
+          <button type="submit" [disabled]="myForm.invalid"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal">
+            <i class="material-icons">add</i>
+            STWÓRZ
+          </button>
+        </div>
+      </form>
+    </base-card-body>
+  </base-card>
+</div>

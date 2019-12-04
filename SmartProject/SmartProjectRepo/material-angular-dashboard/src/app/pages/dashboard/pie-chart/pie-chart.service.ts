@@ -5,24 +5,24 @@ export class PieChartService {
   public getDaySchedule() {
     return [
       {
-        key: 'Coding',
-        hours: 9,
+        key: 'Analiza',
+        hours: 2
       },
       {
-        key: 'Eating',
+        key: 'Programowanie',
         hours: 3,
       },
       {
-        key: 'Sleeping',
-        hours: 3,
+        key: 'Testy developerskie',
+        hours: 1,
       },
       {
-        key: 'Meditation',
-        hours: 3,
+        key: 'Inne',
+        hours: 1,
       },
       {
-        key: 'The fight against evil',
-        hours: 6,
+        key: 'Konsultacje wdrożeniowe',
+        hours: 1,
       },
     ];
   }

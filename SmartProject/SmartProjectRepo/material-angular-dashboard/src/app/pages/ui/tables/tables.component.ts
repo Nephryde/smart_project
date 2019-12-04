@@ -58,9 +58,7 @@ export class TablesComponent extends UpgradableComponent {
   }
 
   public click(){
-    for(let row of this.advancedTable){
-      console.log(row[8])
-    }
+    console.log(this.advancedTable)
   }
 
   /* available sort value:

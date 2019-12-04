@@ -17,16 +17,7 @@ namespace SmartProject.Models
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    modelBuilder.Entity<ProjectUserModel>()
-        //        .HasKey(pu => new { pu.ProjectId, pu.UserId });
-        //    modelBuilder.Entity<ProjectUserModel>()
-        //        .HasOne(pu => pu.Project)
-        //        .WithMany(b => b.ProjectUsers)
-        //        .HasForeignKey(pu => pu.ProjectId);
-        //    modelBuilder.Entity<ProjectUserModel>()
-        //        .HasOne(pu => pu.User)
-        //        .WithMany(c => c.ProjectUsers)
-        //        .HasForeignKey(pu => pu.UserId);
+
         //}
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -40,7 +31,9 @@ namespace SmartProject.Models
         public DbSet<TaskCommentModel> TaskComments { get; set; }
         public DbSet<ReleaseModel> Releases { get; set; }
         public DbSet<ReleaseUserModel> ReleaseUser { get; set; }
-
+        public DbSet<WorkActivityModel> WorkActivities { get; set; }
+        public DbSet<LoggedWorkTimeModel> LoggedWorkTime { get; set; }
+        public DbSet<ProjectRolesModel> ProjectRoles { get; set; }
 
     }
 }

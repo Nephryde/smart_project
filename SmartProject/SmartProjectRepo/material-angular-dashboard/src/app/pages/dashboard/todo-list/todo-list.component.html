@@ -1,6 +1,6 @@
 <base-card>
   <base-card-title>
-    <h2 class="mdl-card__title-text">To-do list</h2>
+    <h2 class="mdl-card__title-text">Lista To-Do</h2>
   </base-card-title>
   <base-card-body>
     <ul class="mdl-list">
@@ -32,7 +32,7 @@
             <span class="mdl-checkbox__label">
               <div class="mdl-textfield mdl-js-textfield">
                 <input class="mdl-textfield__input" type="text" id="todoInput" #todoInput (keydown.escape)="this.createdItem = null" (keydown.enter)="this.addItem()" [(ngModel)]="this.createdItem.title"/>
-                <label class="mdl-textfield__label" for="todoInput">What to do?..</label>
+                <label class="mdl-textfield__label" for="todoInput">Dodaj</label>
               </div>
             </span>
           </label>

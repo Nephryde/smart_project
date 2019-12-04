@@ -1,0 +1,126 @@
+<base-card>
+    <base-card-title>
+        <h2>Dodaj zgłoszenie</h2>
+        <div class="mdl-card__subtitle">Uzupełnij pola poniżej, aby dodać nowe zgłoszenie</div>
+    </base-card-title>
+    <base-card-body>
+        <form class="form" [formGroup]="myForm" (submit)="addNewTask()">
+            <div class="form__article">
+                <h3>Dane ogólne</h3>
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input matInput placeholder="Projekt" value="RunnerBS" disabled>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input matInput placeholder="Wersja/Sprint" value="{{releaseName}}" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input matInput placeholder="Data utworzenia" value="{{myDate | date:'MM/dd/yyyy'}}" disabled>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input class="mdl-textfield__input" matInput [matDatepicker]="picker"
+                                placeholder="Data oddania" formControlName="DateClosed">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__article">
+                <h3>Szczegóły</h3>
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input matInput placeholder="Status" value="Nowy" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <mat-label>Typ zagadnienia</mat-label>
+                            <mat-select formControlName="TypeId" required>
+                                <mat-option *ngFor="let type of taskTypes" [value]="type.id">
+                                    {{type.typeName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input matInput placeholder="Nazwa" formControlName="Name">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <input type="text" aria-label="Number" placeholder="Przypisany użytkownik"
+                                formControlName="UserAssigned" matInput [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn(filteredOptions | async)">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+                                    {{option.fullName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <mat-form-field>
+                            <mat-label>Priorytet</mat-label>
+                            <mat-select formControlName="PriorityId">
+                                <mat-option *ngFor="let priority of taskPriorities" [value]="priority.id">
+                                    {{priority.priorityName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <span>Wycena czasowa</span>
+                <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <mat-checkbox (change)="estimatedOnOff()">Wycena</mat-checkbox>
+                </div>
+                <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label" [style.opacity]="estimatedOn ? '100' : '0'">
+                    <mat-form-field>
+                        <input type="number" matInput placeholder="Szacowany czas"
+                            formControlName="EstimatedTime" >
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form__article employer-form__general_skills">
+                <h3 style="margin-bottom: 2px;">Opis</h3>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <mat-form-field>
+                        <textarea matInput formControlName="Description"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form__action">              
+                <button type="submit" id="submit_button" [disabled]="!myForm.valid"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    Wyślij
+                </button>
+            </div>
+        </form>
+    </base-card-body>
+</base-card>

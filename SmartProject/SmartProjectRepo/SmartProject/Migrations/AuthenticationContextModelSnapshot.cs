@@ -225,6 +225,42 @@ namespace SmartProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("SmartProject.Models.LoggedWorkTimeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("LoggedTime")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WorkActivityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WorkActivityId");
+
+                    b.ToTable("LoggedWorkTime");
+                });
+
             modelBuilder.Entity("SmartProject.Models.ProjectModel", b =>
                 {
                     b.Property<int>("Id")
@@ -241,14 +277,34 @@ namespace SmartProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProjectCreatorId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProjectManagerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectCreatorId");
+
                     b.HasIndex("ProjectManagerId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("SmartProject.Models.ProjectRolesModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProjectRoles");
                 });
 
             modelBuilder.Entity("SmartProject.Models.ProjectUserModel", b =>
@@ -261,12 +317,17 @@ namespace SmartProject.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("RoleId");
 
                     b.HasIndex("UserId");
 
@@ -472,6 +533,21 @@ namespace SmartProject.Migrations
                     b.ToTable("UserBasicInfo");
                 });
 
+            modelBuilder.Entity("SmartProject.Models.WorkActivityModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkActivities");
+                });
+
             modelBuilder.Entity("SmartProject.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -535,10 +611,33 @@ namespace SmartProject.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SmartProject.Models.LoggedWorkTimeModel", b =>
+                {
+                    b.HasOne("SmartProject.Models.TaskModel", "Task")
+                        .WithMany("TimeLogs")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartProject.Models.UserBasicInfo", "User")
+                        .WithMany("TimeLogs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartProject.Models.WorkActivityModel", "WorkActivity")
+                        .WithMany("TimeLogs")
+                        .HasForeignKey("WorkActivityId");
+                });
+
             modelBuilder.Entity("SmartProject.Models.ProjectModel", b =>
                 {
+                    b.HasOne("SmartProject.Models.UserBasicInfo", "ProjectCreator")
+                        .WithMany("ProjectCreators")
+                        .HasForeignKey("ProjectCreatorId");
+
                     b.HasOne("SmartProject.Models.UserBasicInfo", "ProjectManager")
-                        .WithMany()
+                        .WithMany("ProjectManagers")
                         .HasForeignKey("ProjectManagerId");
                 });
 
@@ -549,6 +648,10 @@ namespace SmartProject.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SmartProject.Models.ProjectRolesModel", "Role")
+                        .WithMany("ProjectUsers")
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("SmartProject.Models.UserBasicInfo", "User")
                         .WithMany("ProjectUsers")

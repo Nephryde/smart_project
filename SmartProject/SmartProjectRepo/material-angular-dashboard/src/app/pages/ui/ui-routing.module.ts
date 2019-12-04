@@ -12,8 +12,13 @@ import { RightSidebarComponent } from './right-sidebar';
 import { TablesComponent } from './tables';
 import { TypographyComponent } from './typography';
 import { TaskComponent } from './task/task.component';
-import { ProjectsPanelComponent } from './projects-panel/projects-panel.component';
 import { AddProjectComponent } from './add-new/add-project/add-project.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { LogTimeComponent } from './task/log-time/log-time.component';
+import { AddTaskComponent } from './add-new/add-task/add-task.component';
+import { ProjectManageComponent } from './projects/project-manage/project-manage.component';
+import { AddReleaseComponent } from './add-new/add-release/add-release.component';
 
 @NgModule({
   imports: [
@@ -22,9 +27,14 @@ import { AddProjectComponent } from './add-new/add-project/add-project.component
         path: '',
         component: CommonLayoutComponent,
         children: [
-          { path: 'projects', component: ProjectsPanelComponent, pathMatch: 'full' },
+          { path: 'projects', component: ProjectsComponent, pathMatch: 'full' },
+          { path: 'project-manage/:id', component: ProjectManageComponent, pathMatch: 'full' },
           { path: 'add-project', component: AddProjectComponent, pathMatch: 'full' },
+          { path: 'add-task', component: AddTaskComponent, pathMatch: 'full' },
+          { path: 'add-release/:id', component: AddReleaseComponent, pathMatch: 'full' },
           { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
+          { path: 'task/log-time/:id', component: LogTimeComponent, pathMatch: 'full' },
+          { path: 'tasks/:id', component: TasksComponent, pathMatch: 'full' },
           { path: 'buttons', component: ButtonsComponent, pathMatch: 'full' },
           { path: 'cards', component: CardsComponent, pathMatch: 'full' },
           { path: 'colors', component: ColorsComponent, pathMatch: 'full' },

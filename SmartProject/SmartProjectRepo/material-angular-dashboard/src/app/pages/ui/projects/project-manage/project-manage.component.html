@@ -1,0 +1,76 @@
+<div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone" *ngIf="loaded">
+    <base-card>
+        <base-card-title>
+            <h2 class="mdl-card__title-text">Zarządzaj projektem {{project.projectName}}</h2>
+        </base-card-title>
+        <base-card-body>
+            <ul class="mdl-list pull-left">
+                <li class="mdl-list__item">
+                    <span class="text-color--gray">Project Owner</span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-chip mdl-chip--contact">
+                        <span class="mdl-chip__contact color--orange">PO</span>
+                        <span class="mdl-chip__text">{{project.projectCreatorName}}</span>
+                    </span>
+                </li>
+            </ul>
+            <ul class="mdl-list pull-left">
+                <li class="mdl-list__item">
+                    <span class="text-color--gray">Project Manager</span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-chip mdl-chip--contact">
+                        <span class="mdl-chip__contact color--green">PM</span>
+                        <span class="mdl-chip__text">{{project.projectManagerName}}</span>
+                    </span>
+                </li>
+            </ul>
+            <ul class="mdl-list pull-left">
+                <li class="mdl-list__item">
+                    <span class="text-color--gray">Data utworzenia</span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-chip date-box-chip">
+                        <span class="mdl-chip__text date-box">{{project.projectAddedDate | slice:0:10}} </span>
+                    </span>
+                </li>
+            </ul>
+            <ul class="mdl-list pull-left">
+                <li class="mdl-list__item">
+                    <span class="text-color--gray">Status</span>
+                </li>
+                <li class="mdl-list__item" [ngSwitch]="project.projectClosed">
+                    <span *ngSwitchCase="true" class="mdl-chip closed-switch">
+                        <span class="mdl-chip__text date-box">Zamknięty</span>
+                    </span>
+                    <span *ngSwitchCase="false" class="mdl-chip open-switch">
+                        <span class="mdl-chip__text date-box">Otwarty</span>
+                    </span>
+                </li>
+            </ul>
+            <hr class="clear">
+            <h5 class="header">Działania</h5>
+            <p>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" (click)="redirectAddRelease(projectId)">
+                    Dodaj wersję/sprint
+                </button>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" (click)="renderProjectUsers()">
+                    Członkowie
+                </button>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal">
+                    Zmień nazwę
+                </button>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal">
+                    Szczegóły
+                </button>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--red">
+                    Zamknij projekt
+                </button>
+
+
+            </p>
+        </base-card-body>
+    </base-card>
+</div>
+<app-project-users *ngIf="showProjectUsers" [projectId]="projectId"></app-project-users>

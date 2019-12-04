@@ -1,0 +1,32 @@
+.mdl-list__item{
+    padding: 0 16px;
+}
+
+.clear {
+    clear: both;
+    position: relative;
+    top: 8px;
+    padding-bottom: 5px;
+}
+
+.date-box {
+    padding: 0 12px;
+}
+
+.date-box-chip {
+    background-color: #999;
+}
+
+.closed-switch {
+    background-color: rgb(212, 138, 68);
+}
+
+.open-switch {
+    background-color: rgb(80, 223, 99);
+}
+
+.header {
+    color: #999;
+    padding-left: 10px;
+    font-weight: 400;
+}

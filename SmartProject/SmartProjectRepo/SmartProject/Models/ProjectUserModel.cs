@@ -11,6 +11,7 @@ namespace SmartProject.Models
         public int ProjectId { get; set; }
         public ProjectModel Project { get; set; }
         public int UserId { get; set; }
-        public UserBasicInfo User { get; set; }       
+        public UserBasicInfo User { get; set; }
+        public ProjectRolesModel Role { get; set; }
     }
 }

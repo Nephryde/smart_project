@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
-import { TaskService } from './task.service';
 import { Task } from 'app/models/task/task.model';
 import { TaskComment } from 'app/models/task/task-comment.model';
 import { TaskDetails } from 'app/models/task/task-details.model';
+import { TaskService } from 'app/services/task.service';
 
 @Component({
   selector: 'app-task',
@@ -34,6 +34,10 @@ export class TaskComponent implements OnInit {
       this.taskComments = res;
       console.log(this.taskComments);
     })
+  }
+
+  redirectLogWork() {
+    this.route.navigate(['ui/task/log-time/', this.id]);
   }
 
 }

@@ -1,0 +1,48 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h1 class="mdl-card__title-text">Projekty</h1>
+      <div class="mdl-layout-spacer"></div>
+      <base-pagination [numPage]="numPage"
+                        [currentPage]="currentPage"
+                        (changePage)="changePage($event)"></base-pagination>
+      <div class="right">
+        <span (click)="addProjectRedirect()" class="link icon-text"><i class="material-icons header-icon"><b>add</b></i><span class="add-content-text">Nowy</span> </span>
+      </div>
+    </base-card-title>
+    <base-card-body class="no-padding">
+      <table class="mdl-data-table mdl-js-data-table sorting-table">
+        <thead>
+        <tr>
+          <th *ngFor="let header of projectHeaders; let i = index" class="mdl-data-table__cell--non-numeric"
+              (click)="changeSorting(header, i)">
+            <span>{{ header.name }}</span>
+            <i *ngIf="header.sort !== null " class="material-icons sorting"
+                [class.asc]="header.sort === sortOrder.asc"
+                [class.active]="header.sort === sortOrder.asc || header.sort === sortOrder.desc">sort</i>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of projectsTable; let i = index;">
+          <td *ngFor="let cell of row.slice(0, 3)" class="mdl-data-table__cell--non-numeric">{{ cell }}</td>
+          <td class="mdl-data-table__cell--non-numeric" [ngSwitch]="row[3]">
+              <span *ngSwitchCase="true" class="label label--mini color--green">Zakończone</span>
+              <span *ngSwitchCase="false" class="label label--mini background-color--primary">Otwarty</span>
+          </td>
+          <td *ngFor="let cell of Array(row[4])" class="mdl-data-table__cell--non-numeric">{{ cell | slice:0:10}}</td>
+          <td class="mdl-data-table__cell--non-numeric">
+              <span class="cursor"><i class="material-icons header-icon table-icon">receipt</i><span class="add-text">Szczegóły</span></span> &nbsp;&nbsp;
+              <span *ngIf="row[5]==userId || row[6]==userId" class="cursor" (click)="manageProject(row[0])"><i class="material-icons header-icon table-icon">edit</i>&nbsp;<span class="add-text">Zarządzaj</span></span>
+          </td>
+          <td (click)="renderReleases(row[0], i);" class="mdl-data-table__cell--non-numeric" style="cursor: pointer;"><i class="material-icons" >keyboard_arrow_down</i></td>             
+        </tr>
+        </tbody>
+      </table>
+    </base-card-body>
+  </base-card>
+</div>
+
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone" *ngIf="renderRelease" [@slideInOut]>
+  <app-releases [retreivedData]="passData" ></app-releases>
+</div>
