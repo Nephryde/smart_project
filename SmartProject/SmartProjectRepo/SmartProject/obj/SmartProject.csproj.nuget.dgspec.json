@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj": {}
+    "C:\\Users\\PrzemysławNoskowicz\\Desktop\\jan\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj": {}
   },
   "projects": {
-    "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj": {
+    "C:\\Users\\PrzemysławNoskowicz\\Desktop\\jan\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
+        "projectUniqueName": "C:\\Users\\PrzemysławNoskowicz\\Desktop\\jan\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
         "projectName": "SmartProject",
-        "projectPath": "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
-        "packagesPath": "C:\\Users\\jangi\\.nuget\\packages\\",
-        "outputPath": "G:\\Repo\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\obj\\",
+        "projectPath": "C:\\Users\\PrzemysławNoskowicz\\Desktop\\jan\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\SmartProject.csproj",
+        "packagesPath": "C:\\Users\\PrzemysławNoskowicz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PrzemysławNoskowicz\\Desktop\\jan\\smart_project\\SmartProject\\SmartProjectRepo\\SmartProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jangi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PrzemysławNoskowicz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,6 +78,14 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            },
+            "WindowsAzure.Storage": {
+              "target": "Package",
+              "version": "[9.3.3, )"
             }
           },
           "imports": [
@@ -90,6 +98,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.0.1, 3.0.1]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.0.1, 3.0.1]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -98,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
