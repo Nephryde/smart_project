@@ -9,7 +9,7 @@ namespace SmartProject.Helpers
         {
             CloudBlobClient blobClient = CloudStorageAccount.Parse(connectionString).CreateCloudBlobClient();
 
-            CloudBlobContainer blobContainer = blobClient?.GetContainerReference("smartprojectcontainer");
+            CloudBlobContainer blobContainer = blobClient?.GetContainerReference("smartcontainer");
 
             blobContainer.CreateIfNotExistsAsync();
 
