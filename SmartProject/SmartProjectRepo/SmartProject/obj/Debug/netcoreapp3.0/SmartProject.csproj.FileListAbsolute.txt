@@ -367,4 +367,3 @@ C:\Users\PrzemysławNoskowicz\Desktop\jan\smart_project\SmartProject\SmartProjec
 C:\Users\PrzemysławNoskowicz\Desktop\jan\smart_project\SmartProject\SmartProjectRepo\SmartProject\bin\Debug\netcoreapp3.0\Microsoft.WindowsAzure.Storage.dll
 C:\Users\PrzemysławNoskowicz\Desktop\jan\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\PrzemysławNoskowicz\Desktop\jan\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\PrzemysławNoskowicz\Desktop\jan\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.csprojAssemblyReference.cache

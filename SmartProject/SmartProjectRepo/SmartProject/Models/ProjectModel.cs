@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartProject.Models
 {
@@ -20,5 +18,6 @@ namespace SmartProject.Models
         public UserBasicInfo ProjectCreator { get; set; }
         public ICollection<ReleaseModel> Releases { get; set; }
         public ICollection<ProjectUserModel> ProjectUsers { get; set; }
+        public ICollection<AttachmentModel> Attachments { get; set; }
     }
 }

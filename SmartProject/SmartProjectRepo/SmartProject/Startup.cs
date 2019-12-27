@@ -17,6 +17,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using SmartProject.Abstracts;
 using SmartProject.Services;
+using SmartProject.Repositories;
 
 namespace SmartProject
 {
@@ -42,6 +43,8 @@ namespace SmartProject
             services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AuthenticationContext>();
 
             services.AddScoped<IAzureBlobService, AzureBlobService>();
+
+            services.AddScoped<IAttachmentRepository, AttachmentRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {
