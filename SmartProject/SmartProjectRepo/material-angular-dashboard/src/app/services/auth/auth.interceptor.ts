@@ -27,8 +27,8 @@ export class AuthInterceptor implements HttpInterceptor {
           succ => { },
           err => {
             if(err.status == 401) {
-              // localStorage.removeItem('token');
-              // this.router.navigateByUrl('/#/pages/login');
+               localStorage.removeItem('token');
+               this.router.navigateByUrl('/#/pages/login');
             }             
           }
         )
@@ -36,12 +36,5 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     else
       return next.handle(request.clone());
-    // add authorization token for full api requests
-    // if (request.url.includes('api') && this.auth.isLoggedIn) {
-    //   request = request.clone({
-    //     setHeaders: { Authorization: `Bearer ${this.auth.authToken}` },
-    //   });
-    // }
-    // return next.handle(request);
   }
 }

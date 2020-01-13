@@ -5,32 +5,24 @@ export class DiscreteBarChartService {
   public getCumulativeReturn() {
     return [
       {
-        label: 'Option 1',
+        label: 'Test Testowy',
         value: 22,
       },
       {
-        label: 'Option 2',
+        label: 'Krzysztof Jeżyna',
         value: 31,
       },
       {
-        label: 'Option 3',
-        value: -5,
-      },
-      {
-        label: 'Option 4',
+        label: 'Jan Kowalski',
         value: 16,
       },
       {
-        label: 'Option 5',
+        label: 'Jan Gierasimiuk',
         value: 19,
       },
       {
-        label: 'Option 6',
+        label: 'Bożena kowalska',
         value: 26,
-      },
-      {
-        label: 'Option 7',
-        value: 9,
       },
     ];
   }

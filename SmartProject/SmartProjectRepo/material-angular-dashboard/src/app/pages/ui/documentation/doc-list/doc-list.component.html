@@ -1,0 +1,20 @@
+<base-card>
+  <base-card-title>
+    <h1 class="mdl-card__title-text">{{retreivedData.projectName}} - Dokumentacja projektowa</h1>
+    <div class="right">
+      <span (click)="sendFiles()" style="cursor: pointer;"><a><i class="material-icons header-icon"><b>add</b></i><span class="add-content-text">Prześlij pliki</span></a></span>
+    </div>
+  </base-card-title>
+  <base-card-body class="no-padding">
+    <table class="mdl-data-table mdl-js-data-table">
+      <thead>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of files; let i = index">
+          <td class="mdl-data-table__cell--non-numeric">{{row.name}}</td>
+          <td class="mdl-data-table__cell--non-numeric"><a href="{{row.path}}">Pobierz</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </base-card-body>
+</base-card>

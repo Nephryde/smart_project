@@ -33,6 +33,7 @@ export class AddProjectComponent implements OnInit {
   async ngOnInit() {
     this.initForm();
     this.projectManagers = await this.getProjectManagersData();
+    console.log(this.projectManagers);
     this.filteredOptions = this.myForm.controls['ProjectManager'].valueChanges
     .pipe(
       startWith<string | User>(''),

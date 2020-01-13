@@ -107,7 +107,7 @@ export class TasksComponent implements OnInit {
   };
 
   public currentPage = 1;
-  private countPerPage = 4;
+  private countPerPage = 10;
   
 
   //public advancedTable = this.getAdvancedTablePage(1, this.countPerPage);

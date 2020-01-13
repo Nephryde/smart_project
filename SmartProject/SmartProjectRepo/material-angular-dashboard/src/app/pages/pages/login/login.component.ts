@@ -38,7 +38,7 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
         localStorage.setItem('token', res.token);
         this.service.getUserId().subscribe(
           (res:any) => {
-            sessionStorage.setItem('userId', res);
+            localStorage.setItem('userId', res);
             console.log(sessionStorage);
           }
         )
@@ -49,7 +49,7 @@ export class LoginComponent extends BlankLayoutCardComponent implements OnInit {
         if(err.status == 400)
           this.toastr.error('Niepoprawny login lub hasło.', 'Logowanie niepomyślne.');
         else
-          console.log(err); 
+        this.toastr.error('Przepraszamy, usługa niedostępna.', 'Operacja niepomyślna.');
       }
     );   
   }

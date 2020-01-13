@@ -147,6 +147,48 @@ namespace SmartProject.Controllers
             return query;
         }
 
+        [HttpGet]
+        [Route("GetUsers")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetUsers()
+        {
+            var query = await (from usr in _context.UserBasicInfo
+                               select new Dictionary<string, object>
+                               {
+                                   {"id", usr.Id },
+                                   {"fullName", usr.FullName }
+                               })
+                               .ToListAsync();
+
+            return query;
+        }
+
+        [HttpGet]
+        [Route("GetRoles")]
+        public async Task<ActionResult<IEnumerable<ProjectRolesModel>>> GetRoles()
+        {
+            return await _context.ProjectRoles.ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("GetProjectTasks/{id}")]
+        public async Task<ActionResult<Object>> GetProjectTasks(int id)
+        {
+            var query = await (from pr in _context.Projects
+                               join r in _context.Releases on pr.Id equals r.Project.Id
+                               join t in _context.Task on r.Id equals t.Release.Id
+                               where pr.Id == id
+                               select new Dictionary<string, object>
+                               {
+                                   {"start", t.AddedDate.ToString() },
+                                   {"end", t.DeadlineDate.ToString() },
+                                   {"title", t.Title },
+                                   {"color", t.Type.Id }
+                               })
+                               .ToListAsync();
+
+            return query;
+        }
+
         // PUT: api/Project/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -278,6 +320,57 @@ namespace SmartProject.Controllers
         private bool ProjectModelExists(int id)
         {
             return _context.Projects.Any(e => e.Id == id);
+        }
+
+        [HttpGet]
+        [Route("GetWorkTime")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetWorkTime()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            var query = await (from pr in _context.Projects
+                               join pu in _context.ProjectUser on pr.Id equals pu.ProjectId
+                               join r in _context.Releases on pr.Id equals r.Project.Id
+                               join t in _context.Task on r.Id equals t.Release.Id
+                               join lwt in _context.LoggedWorkTime on t.Id equals lwt.TaskId
+                               join wa in _context.WorkActivities on lwt.WorkActivity.Id equals wa.Id
+                               where pu.UserId == user.UserBasic.Id
+                               select new Dictionary<string, object>
+                               {
+                                   {"projectName", pr.Name },
+                                   {"releaseName", r.Name },
+                                   {"taskId", t.Id },
+                                   {"taskName", t.Title },
+                                   {"time", lwt.LoggedTime },
+                                   {"activity", wa.Name },
+                                   {"date", lwt.Date },
+                                   {"comment", lwt.Comment }
+                               })
+                               .Distinct()
+                               .ToListAsync();
+
+            return query;
+        }
+
+        [HttpGet]
+        [Route("GetDailySchedule")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetDailySchedule()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            var query = await (from lwt in _context.LoggedWorkTime
+                               join wa in _context.WorkActivities on lwt.WorkActivity.Id equals wa.Id
+                               where lwt.UserId == user.UserBasic.Id && lwt.Date.Date == DateTime.UtcNow.Date
+                               select new Dictionary<string, object>
+                               {
+                                   {"key", wa.Name },
+                                   {"hours", lwt.LoggedTime },
+                               })
+                               .ToListAsync();
+
+            return query;
         }
     }
 }

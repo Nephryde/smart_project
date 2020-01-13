@@ -36,4 +36,12 @@ export class ProjectManageComponent implements OnInit {
     this.showProjectUsers = true;
   }
 
+  goToCalendar() {
+    this.route.navigate(['ui/projects/calendar/', this.projectId]);
+  }
+
+  alert() {
+    window.alert("Niedostępne");
+  }
+
 }

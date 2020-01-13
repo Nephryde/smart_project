@@ -25,6 +25,14 @@ export class ProjectService {
     return this.http.get(environment.apiBaseUrl + '/Project/GetProjectManagers');
   }
 
+  getUsers() {
+    return this.http.get(environment.apiBaseUrl + '/Project/GetUsers');
+  }
+
+  getRoles() {
+    return this.http.get(environment.apiBaseUrl + '/Project/GetRoles');
+  }
+
   getProjectInfo = (projectId: number) =>
     this.http.get(environment.apiBaseUrl + '/Project/GetProjectInfo/' + projectId);
 
@@ -34,6 +42,16 @@ export class ProjectService {
 
   getProjectUsers = (projectId: number) =>
     this.http.get(environment.apiBaseUrl + '/Project/GetProjectUsers/' + projectId);
+
+  getProjectTasksToCalendar = (projectId: number) =>
+    this.http.get(environment.apiBaseUrl + '/Project/GetProjectTasks/' + projectId);
+
+  getProjectDoc = (projectId: number) =>
+    this.http.get(environment.apiBaseUrl + '/Files/Attachments/' + projectId);
+
+  getLoggedTime() {
+    return this.http.get(environment.apiBaseUrl + '/Project/GetWorkTime/');
+  }
 
   addProject(form: FormGroup, prManager: User) {
     var today = new Date();
@@ -94,6 +112,31 @@ export class ProjectService {
     ];
   }
 
+  getProjectsDocHeaders() {
+    return [
+      {
+        name: '#',
+        sort: null,
+      },
+      {
+        name: 'Nazwa',
+        sort: 0,
+      },
+      {
+        name: 'Menadżer projektu',
+        sort: 0,
+      },
+      {
+        name: 'Status',
+        sort: 0,
+      },
+      {
+        name: 'Data dodania',
+        sort: 0,
+      },
+    ];
+  }
+
   getReleasesHeaders() {
     return [
       'Wersja',
@@ -102,6 +145,26 @@ export class ProjectService {
       'Zgłoszenia otwarte',
       'Postęp',
       'Przejdź do zgłoszeń',
+    ];
+  }
+
+  getWorkTimeHeaders() {
+    return [
+      'Projekt',
+      'Wersja',
+      'Zgłoszenie',
+      'Czas',
+      'Aktywność',
+      'Data',
+      'Komentarz',
+    ];
+  }
+
+  getDocHeaders() {
+    return [
+      'Nazwa',
+      'Pobierz',
+      'Rozszerzenie'
     ];
   }
 

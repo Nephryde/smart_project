@@ -67,12 +67,27 @@ import { AddTaskComponent } from './add-new/add-task/add-task.component';
 import { ProjectManageComponent } from './projects/project-manage/project-manage.component';
 import { ProjectUsersComponent } from './projects/project-manage/project-users/project-users.component';
 import { AddReleaseComponent } from './add-new/add-release/add-release.component';
+import { CalendarComponent } from './projects/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
+import { DocListComponent } from './documentation/doc-list/doc-list.component';
+import { SendFilesComponent } from './send-files/send-files.component';
+import { AddCommentComponent } from './task/add-comment/add-comment.component';
+import { WorkTimeComponent } from './work-time/work-time.component';
+import { EditTaskComponent } from './add-new/edit-task/edit-task.component';
+import { AddUserComponent } from './projects/project-manage/add-user/add-user.component';
 
 @NgModule({
   imports: [
     CommonModule,
     UIRoutingModule,
     ThemeModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
     MaterialAngularSelectModule,
     RightSidebarModule,
     ReactiveFormsModule,
@@ -119,6 +134,11 @@ import { AddReleaseComponent } from './add-new/add-release/add-release.component
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    AngularFileUploaderModule,
   ],
   declarations: [
     ButtonsComponent,
@@ -138,6 +158,14 @@ import { AddReleaseComponent } from './add-new/add-release/add-release.component
     ProjectManageComponent,
     ProjectUsersComponent,
     AddReleaseComponent,
+    CalendarComponent,
+    DocumentationComponent,
+    DocListComponent,
+    SendFilesComponent,
+    AddCommentComponent,
+    WorkTimeComponent,
+    EditTaskComponent,
+    AddUserComponent,
   ],
   providers: [
     TablesService,

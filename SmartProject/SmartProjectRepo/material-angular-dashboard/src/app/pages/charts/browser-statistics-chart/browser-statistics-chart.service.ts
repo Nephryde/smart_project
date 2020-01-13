@@ -5,24 +5,16 @@ export class BrowserStatisticsChartService {
   public getBrowserStatistics() {
     return [
       {
-        key: 'Chrome',
-        y: 42,
+        key: 'Modyfikacja',
+        y: 60,
       },
       {
-        key: 'Opera',
-        y: 13,
-      },
-      {
-        key: 'Safari',
+        key: 'Zadanie',
         y: 14,
       },
       {
-        key: 'Firefox',
-        y: 17,
-      },
-      {
-        key: 'IE & Edge',
-        y: 16,
+        key: 'Błąd',
+        y: 26,
       },
     ];
   }

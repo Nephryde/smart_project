@@ -1,44 +1,59 @@
 <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
   <base-card>
     <base-card-title>
-      <h2 class="mdl-card__title-text">{{ task?.type }} #{{task?.taskId}} - {{ task?.title }}</h2>
-      <button (click)="redirectLogWork()">Dziennik</button>
+      <h2 class="mdl-card__title-text"><span class="row-text">{{ task?.type }} #{{task?.taskId}}</span>&nbsp; - {{ task?.title }}</h2>
+      <div class="right">
+        <span (click)="redirectLogWork()" class="link icon-text"><i
+            class="material-icons header-icon"><b>edit</b></i><span class="add-content-text">Edytuj</span> </span>
+        &nbsp;&nbsp;&nbsp;
+        <span (click)="redirectLogWork()" class="link icon-text"><i
+            class="material-icons header-icon"><b>description</b></i><span class="add-content-text">Dziennik</span>
+        </span>
+      </div>
     </base-card-title>
     <base-card-body>
-      <p>Dodane przez <a href="">{{ task?.authorName }}</a>.<span style="padding-left: 8px">Ostatnia aktualizacja: {{ task?.modifiedDate | slice:0:10}}</span></p>
-      <div class="row">
+      <p>Dodane przez <a href="">{{ task?.authorName }}</a>.<span style="padding-left: 8px">Ostatnia aktualizacja:
+          {{ task?.modifiedDate | slice:0:10}}</span></p>
+      <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
-          <p><b>Status:</b> {{ task?.status }}</p>
-          <p><b>Priorytet:</b> {{ task?.priority }}</p>
-          <p><b>Przypisany do:</b><a href=""> {{ task?.userAssignedName }}</a></p>
-          <p><b>Szacowany czas:</b> {{ task?.estimatedTime }}</p>
+          <p><b class="row-text">Status:</b> {{ task?.status }}</p>
+          <p><b class="row-text">Priorytet:</b> {{ task?.priority }}</p>
+          <p><b class="row-text">Szacowany czas:</b> {{ task?.estimatedTime }}</p>
+          <p><b class="row-text">Data rozpoczęcia:</b> {{ task?.addedDate | slice:0:10 }}</p>
+          <p *ngIf="task?.deadlineDate"><b class="row-text">Data oddania:</b> {{ task?.deadlineDate | slice:0:10 }}</p>
         </div>
         <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
-          <p><b>Data rozpoczęcia:</b> {{ task?.addedDate | slice:0:10 }}</p>
-          <p><b>Data oddania:</b> {{ task?.deadlineDate | slice:0:10 }}</p> 
-          <p><b>Postęp:</b><mat-progress-bar mode="determinate" value="40" style="color:brown;"></mat-progress-bar></p>
-          <p><b>Przepracowany czas:</b> PRZEPRACOWANY CZAS</p>
+          
+          <p><b class="row-text">Przypisany do:</b><a href=""> {{ task?.userAssignedName }}</a></p>
+          <p><b class="row-text">Status:</b> {{ task?.status }}</p>
+          <p>
+            <mat-progress-bar mode="determinate"
+              value="{{((task?.progress/7)*100)}}" style="color:brown;">
+            </mat-progress-bar>
+          </p>
+          <p><b class="row-text">Przepracowany czas:</b>&nbsp;&nbsp; <a href="">{{sumTime}}</a></p>
         </div>
       </div>
       <hr>
       <h6>Opis</h6>
       <div class="row">
-        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone" [innerHTML]>
           {{ task?.description }}
         </div>
       </div>
-      <hr>
-      <h6>Podzagadnienia</h6>
     </base-card-body>
   </base-card>
 </div>
-<div *ngFor="let comment of taskComments; index as i" class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+<div *ngFor="let comment of taskComments; index as i"
+  class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
   <base-card>
     <base-card-title style="padding: 10px 16px;">
       <h6 class="mdl-card__title-text">#{{i+1}} {{ comment.userName }}</h6>
     </base-card-title>
-  <base-card-body>
-    <p [innerHTML]="comment.content"></p>
-  </base-card-body>
-</base-card>
+    <base-card-body>
+      <p [innerHTML]="comment.content"></p>
+    </base-card-body>
+  </base-card>
 </div>
+
+<app-add-comment></app-add-comment>

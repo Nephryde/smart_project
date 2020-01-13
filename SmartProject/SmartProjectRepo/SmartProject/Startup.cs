@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using SmartProject.Abstracts;
+using SmartProject.Services;
+using SmartProject.Repositories;
 
 namespace SmartProject
 {
@@ -37,7 +40,11 @@ namespace SmartProject
 
             services.AddDbContext<AuthenticationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AuthenticationContext>();         
+            services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AuthenticationContext>();
+
+            services.AddScoped<IAzureBlobService, AzureBlobService>();
+
+            services.AddScoped<IAttachmentRepository, AttachmentRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {

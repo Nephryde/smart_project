@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <base-card>
+        <base-card-title>
+            <h5 class="mdl-card__title-text text-color--white">Prześlij pliki</h5>
+        </base-card-title>
+        <base-card-body>
+            <angular-file-uploader [config]="afuConfig">
+            </angular-file-uploader>
+            <hr>
+            <button (click)="goBack()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal">
+                Powrót 
+              </button>
+        </base-card-body>
+    </base-card>
+</div>

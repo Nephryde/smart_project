@@ -5,24 +5,16 @@ export class CountryStatisticsChartService {
   public getCountryStatistics() {
     return [
       {
-        key: 'United States',
-        y: 31,
+        key: 'OperaBM',
+        y: 95,
       },
       {
-        key: 'Belarus',
-        y: 26,
+        key: 'SiteCore',
+        y: 3,
       },
       {
-        key: 'Italy',
-        y: 18,
-      },
-      {
-        key: 'France',
-        y: 15,
-      },
-      {
-        key: 'Other',
-        y: 10,
+        key: 'Good Repair',
+        y: 2,
       },
     ];
   }

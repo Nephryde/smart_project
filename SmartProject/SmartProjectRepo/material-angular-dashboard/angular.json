@@ -21,7 +21,7 @@
             ],
             "styles": [
               "src/theme/styles.scss",
-              "src/theme/theme.scss",
+              "src/theme/theme.scss"
             ],
             "scripts": [
               "node_modules/material-design-lite/material.js"

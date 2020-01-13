@@ -39,7 +39,7 @@ export class SidebarComponent extends BaseSidebarComponent {
     //   ],
     //   icon: 'view_comfy',
     // },
-    { name: 'Dokumentacja', link: '/app/dashboard', icon: 'developer_board' },
+    { name: 'Dokumentacja', link: '/ui/documentation', icon: 'developer_board' },
     // { name: 'Konto', link: '/app/forms', icon: 'person' },
     // {
     //   name: 'Maps', icon: 'map', children: [
@@ -52,7 +52,6 @@ export class SidebarComponent extends BaseSidebarComponent {
       name: 'Strony', children: [
       { name: 'Logowanie', link: '/pages/login' },
       { name: 'Rejestracja', link: '/pages/sign-up' },
-      { name: 'Forgot password', link: '/pages/forgot-password' },
       { name: '404', link: '/pages/error' },
       ],
       icon: 'pages',

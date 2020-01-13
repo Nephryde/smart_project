@@ -19,6 +19,11 @@ import { LogTimeComponent } from './task/log-time/log-time.component';
 import { AddTaskComponent } from './add-new/add-task/add-task.component';
 import { ProjectManageComponent } from './projects/project-manage/project-manage.component';
 import { AddReleaseComponent } from './add-new/add-release/add-release.component';
+import { CalendarComponent } from './projects/calendar/calendar.component';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { SendFilesComponent } from './send-files/send-files.component';
+import { WorkTimeComponent } from './work-time/work-time.component';
+import { EditTaskComponent } from './add-new/edit-task/edit-task.component';
 
 @NgModule({
   imports: [
@@ -28,9 +33,14 @@ import { AddReleaseComponent } from './add-new/add-release/add-release.component
         component: CommonLayoutComponent,
         children: [
           { path: 'projects', component: ProjectsComponent, pathMatch: 'full' },
+          { path: 'work-time', component: WorkTimeComponent, pathMatch: 'full' },
+          { path: 'send/:id', component: SendFilesComponent, pathMatch: 'full' },
+          { path: 'documentation', component: DocumentationComponent, pathMatch: 'full'},
+          { path: 'projects/calendar/:id', component: CalendarComponent, pathMatch: 'full' },
           { path: 'project-manage/:id', component: ProjectManageComponent, pathMatch: 'full' },
           { path: 'add-project', component: AddProjectComponent, pathMatch: 'full' },
           { path: 'add-task', component: AddTaskComponent, pathMatch: 'full' },
+          { path: 'edit-task/:id', component: EditTaskComponent, pathMatch: 'full' },
           { path: 'add-release/:id', component: AddReleaseComponent, pathMatch: 'full' },
           { path: 'task/:id', component: TaskComponent, pathMatch: 'full' },
           { path: 'task/log-time/:id', component: LogTimeComponent, pathMatch: 'full' },

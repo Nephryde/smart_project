@@ -1,0 +1,14 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+    <base-card>
+    <base-card-title>
+      <h6 class="mdl-card__title-text">Dodaj komentarz</h6>
+    </base-card-title>
+    <base-card-body>
+      <form [formGroup]="myForm" (submit)="addComment()">
+          <textarea formControlName="Content"></textarea>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" type="submit">Wyślij</button>
+      </form>
+    </base-card-body>
+  </base-card>
+</div>
+

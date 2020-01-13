@@ -1,0 +1,36 @@
+<link href="https://unpkg.com/bootstrap-css-only@4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://unpkg.com/angular-calendar@0.28.1/css/angular-calendar.css" rel="stylesheet">
+<link href="https://unpkg.com/flatpickr@4.6.3/dist/flatpickr.css" rel="stylesheet">
+
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" (click)="uploadEvents()">Załaduj kalendarz</button>
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone" *ngIf="loaded">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" mwlCalendarPreviousView
+          [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+          Previous
+        </div>
+        <div class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--amber" mwlCalendarToday
+          [(viewDate)]="viewDate">
+          Today
+        </div>
+        <div class="mdl-button mdl-js-button mdl-js-ripple-effect color-text--teal" mwlCalendarNextView [view]="view"
+          [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+  </div>
+  <br />
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+      [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)">
+    </mwl-calendar-month-view>
+  </div>
+
+</div>

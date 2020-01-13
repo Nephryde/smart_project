@@ -30,13 +30,18 @@ export class LogTimeComponent implements OnInit {
     return this.taskService.getActivities().toPromise();
   }
 
+  back() {
+    this.route.navigate(['ui/task/' + this.taskId]);
+  }
+
   logTime() {
     this.taskService.postLogWork(this.myForm).subscribe(
       (res:any) => {
         console.log(res);
         if(res){
           this.myForm.reset();
-          this.toastr.success('Projekt został pomyślnie dodany.', 'Sukces', );
+          this.toastr.success('Pomyślnie zalogowano czas.', 'Sukces', );
+          this.route.navigate(['ui/task/' + this.taskId]);
         } else {
             console.log("błąd");
         }

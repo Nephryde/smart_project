@@ -18,6 +18,8 @@ export class TaskComponent implements OnInit {
   task: TaskDetails;
   taskComments: TaskComment[] = [];
   progress: number;
+  loggedTime: any[] = [];
+  sumTime: number;
 
   constructor(private taskService: TaskService, private route: Router) { }
 
@@ -33,6 +35,15 @@ export class TaskComponent implements OnInit {
     this.taskService.getTaskComments(this.id).subscribe((res:any) => {
       this.taskComments = res;
       console.log(this.taskComments);
+    })
+
+    this.taskService.getTaskLoggedTime(this.id).subscribe((res:any) => {
+      this.loggedTime = res;
+      console.log(this.loggedTime);
+      this.sumTime = this.loggedTime.reduce(function(prev, cur) {
+        return prev + cur.time;
+      }, 0);
+      console.log(this.sumTime);
     })
   }
 

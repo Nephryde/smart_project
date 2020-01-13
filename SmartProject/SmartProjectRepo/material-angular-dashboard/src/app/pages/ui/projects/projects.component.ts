@@ -53,7 +53,8 @@ export class ProjectsComponent implements OnInit {
     this.projects = this.projectService.mapToArray(this.projects);
     this.projectsTable = this.getAdvancedTablePage(1, this.countPerPage);
     this.numPage = this.getAdvancedTableNumOfPage(this.countPerPage);
-    this.userId = sessionStorage.getItem('userId');
+    this.userId = localStorage.getItem('userId');
+    console.log(this.userId);
   }
 
   getProjectsData() : Promise<any> {

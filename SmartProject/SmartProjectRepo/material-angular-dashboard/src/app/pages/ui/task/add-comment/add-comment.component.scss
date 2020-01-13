@@ -1,0 +1,9 @@
+textarea {
+    height: 90px;
+    resize: both;
+    width: 100%;
+  }
+
+  textarea.mat-input-element {
+    resize: both !important;
+  }

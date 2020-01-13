@@ -236,11 +236,12 @@ G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\bin\Debug\netco
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.csprojAssemblyReference.cache
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\staticwebassets\SmartProject.StaticWebAssets.Manifest.cache
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\staticwebassets\SmartProject.StaticWebAssets.xml
-G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.MvcApplicationPartsAssemblyInfo.cs
-G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.MvcApplicationPartsAssemblyInfo.cache
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.AssemblyInfoInputs.cache
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.AssemblyInfo.cs
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.RazorTargetAssemblyInfo.cache
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.csproj.CopyComplete
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.dll
 G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.pdb
+G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\bin\Debug\netcoreapp3.0\Microsoft.WindowsAzure.Storage.dll
+G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.MvcApplicationPartsAssemblyInfo.cs
+G:\Repo\smart_project\SmartProject\SmartProjectRepo\SmartProject\obj\Debug\netcoreapp3.0\SmartProject.MvcApplicationPartsAssemblyInfo.cache

@@ -8,6 +8,8 @@ import { TaskActivity } from 'app/models/task/task-activity.model';
 import { TaskType } from 'app/models/task/task-type.model';
 import { TaskPriority } from 'app/models/task/task-priority.model';
 import { Release } from 'app/models/release/release.model';
+import { Task } from 'app/models/task/task.model';
+import { TaskStatus } from 'app/models/task/task-status.model';
 
 @Injectable()
 export class TaskService{
@@ -15,6 +17,8 @@ export class TaskService{
     public taskType = new TaskType();
     public taskPriority = new TaskPriority();
     public releaseModel = new Release();
+    public taskModel = new Task();
+    public taskStatus = new TaskStatus();
 
     constructor(private http: HttpClient, private fb: FormBuilder) { }
 
@@ -43,6 +47,9 @@ export class TaskService{
         return this.http.get(environment.apiBaseUrl + '/Task/TaskStatuses');
     }
 
+    getTaskLoggedTime = (taskId: number) =>
+        this.http.get(environment.apiBaseUrl + '/Task/GetTaskWorkTime/' + taskId);
+
     postTask(form: FormGroup, usrAssigned: User) {
         this.taskType.id = form.value.TypeId;
         this.taskPriority.id =  form.value.PriorityId;
@@ -61,6 +68,39 @@ export class TaskService{
         console.log(body);
 
         return this.http.post(environment.apiBaseUrl + '/Task/AddNewTask', body);
+    }
+
+    putTask(form: FormGroup, usrAssigned: User, taskId: number) {
+        this.taskType.id = form.value.TypeId;
+        this.taskPriority.id =  form.value.PriorityId;
+        this.releaseModel.id = form.value.ReleaseId;
+        this.taskStatus.id = form.value.StatusId;
+
+        var body = {
+            Id: taskId,
+            Title: form.value.Name,
+            UserAssigned: usrAssigned === undefined ? null : usrAssigned,
+            EstimatedTime: form.value.EstimatedTime === '' ? null : form.value.EstimatedTime,
+            DeadlineDate: form.value.DateClosed === '' ? null : form.value.DateClosed,
+            Status: this.taskStatus,
+            Type: this.taskType,
+            Priority: this.taskPriority,
+            Description: form.value.Description === '' ? null : form.value.Description
+        }
+        console.log(body);
+
+        return this.http.put(environment.apiBaseUrl + '/Task/' + taskId, body);
+    }
+
+    postComment(form: FormGroup){
+        this.taskModel.id = form.value.taskId;
+
+        var body = {
+            Task: this.taskModel,
+            Content: form.value.Content,           
+        }
+
+        return this.http.post(environment.apiBaseUrl + '/Task/AddComment', body);
     }
 
     postLogWork(form: FormGroup){

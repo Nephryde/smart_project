@@ -1,3 +1,4 @@
+<div class="mdl-grid">
 <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-col-phone">
     <base-card>
         <base-card-title>
@@ -11,6 +12,13 @@
                 </mat-list-option>
             </mat-selection-list>
             <hr>
+            <span (click)="expandFilters(filtersVisible)" class="link icon-text"><i
+                class="material-icons header-icon"><b>filter_list</b></i><span class="add-content-text">Dodaj członka</span>
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span (click)="expandFilters(filtersVisible)" class="link icon-text"><i
+            class="material-icons header-icon"><b>filter_list</b></i><span class="add-content-text">Dodaj rolę</span>
+    </span>
         </base-card-body>
     </base-card>
 </div>
@@ -20,8 +28,12 @@
         </base-card-title>
         <base-card-body class="no-padding">
             <div *ngFor="let user of filteredProjectUsers">
-                {{user.userFullName}}
+                <p>{{user.userFullName}}</p>
             </div>
         </base-card-body>
     </base-card>
+</div>
+
+<div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+    <app-add-user></app-add-user>
 </div>

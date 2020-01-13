@@ -47,3 +47,49 @@
       }
     }
 }
+
+.link{
+  color: #00bcd4;   
+  cursor: pointer;
+}
+
+  .link:hover {
+    color: #03A9F4;
+    text-decoration: underline;
+  }
+
+.right {
+  margin-left: auto;
+  padding-left: 20px; 
+}
+
+.add-content-text {
+  font-size: 17px;
+  font-weight: bold;
+  position: relative;
+  bottom: 5px;
+}
+
+.add-text {
+  font-size: 14px;
+  position: relative;
+  bottom: 5px;
+  color: #999;
+}
+
+.add-text:hover {
+  text-decoration: underline;
+  color: #03A9F4;
+}
+
+.table-icon {
+  font-size: 20px !important;
+}
+
+.cursor { 
+  cursor: pointer;
+}
+
+.cursos:hover {
+  color: #03A9F4;
+}

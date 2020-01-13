@@ -1,0 +1,27 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+    <base-card>
+      <base-card-title>
+        <h1 class="mdl-card__title-text">Twój przepracowany czas</h1>
+      </base-card-title>
+      <base-card-body class="no-padding">
+        <table class="mdl-data-table mdl-js-data-table stripped-table">
+          <thead>
+          <tr>
+            <th *ngFor="let header of workTimeHeaders" class="mdl-data-table__cell--non-numeric">{{ header }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of sortedWorkTime">
+            <td class="mdl-data-table__cell--non-numeric">{{ row.projectName }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ row.releaseName }}</td>
+            <td class="mdl-data-table__cell--non-numeric"><a (click)="goToTask(row.taskId)" style="cursor: pointer;">#{{row.taskId}} - {{ row.taskName }}</a></td>
+            <td class="mdl-data-table__cell--non-numeric">{{ row.time }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ row.activity }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ row.date | slice:0:10 }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ row.comment}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </base-card-body>
+    </base-card>
+  </div>

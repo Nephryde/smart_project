@@ -11,7 +11,7 @@
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <mat-form-field>
-                            <input matInput placeholder="Projekt" value="RunnerBS" disabled>
+                            <input matInput placeholder="Projekt" value="OperaBM" disabled>
                         </mat-form-field>
                     </div>
 
@@ -64,7 +64,7 @@
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <mat-form-field>
-                            <input matInput placeholder="Nazwa" formControlName="Name">
+                            <input matInput placeholder="Nazwa" formControlName="Name" required>
                         </mat-form-field>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <mat-form-field>
                             <input type="text" aria-label="Number" placeholder="Przypisany użytkownik"
-                                formControlName="UserAssigned" matInput [matAutocomplete]="auto">
+                                formControlName="UserAssigned" matInput [matAutocomplete]="auto" required>
                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn(filteredOptions | async)">
                                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
                                     {{option.fullName}}
@@ -83,7 +83,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <mat-form-field>
-                            <mat-label>Priorytet</mat-label>
+                            <mat-label>Priorytet *</mat-label>
                             <mat-select formControlName="PriorityId">
                                 <mat-option *ngFor="let priority of taskPriorities" [value]="priority.id">
                                     {{priority.priorityName}}

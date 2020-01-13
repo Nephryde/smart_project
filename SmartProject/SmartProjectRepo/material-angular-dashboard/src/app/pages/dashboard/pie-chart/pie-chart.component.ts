@@ -21,7 +21,7 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
     super();
   }
 
-  public ngOnInit() {
+  public async ngOnInit() {
     const colors = [
       '#03a9f4',
       '#f44336',
@@ -31,7 +31,9 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
       '',
     ];
 
-    const rawData = this.pieChartService.getDaySchedule();
+    const x = this.pieChartService.getSchedule();
+    const rawData = await this.pieChartService.getSchedule();
+    console.log(rawData);
 
     const animatedData = [
       ...rawData.map(job => ({ key: job.key, end: job.hours, y: 0 })),

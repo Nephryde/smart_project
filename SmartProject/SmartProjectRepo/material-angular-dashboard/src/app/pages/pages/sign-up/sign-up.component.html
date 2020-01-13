@@ -12,8 +12,8 @@
         <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
 
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
-            <input formControlName="UserName" class="mdl-textfield__input" type="text">
-            <label class="mdl-textfield__label form-control" for="username">Nazwa użytkownika *</label>
+            <input formControlName="UserName" class="mdl-textfield__input" type="text" required>
+            <label class="mdl-textfield__label form-control" for="username">Nazwa użytkownika</label>
             <div>
               <span *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required" class="mdl-textfield__error">
                   Nazwa użytkownika nie może być pusta.
@@ -39,7 +39,7 @@
           <div formGroupName="Passwords">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
               <input formControlName="Password" class="mdl-textfield__input form-control" type="password">
-              <label class="mdl-textfield__label">Hasło</label>
+              <label class="mdl-textfield__label">Hasło (minimalnie 4 znaki)</label>
 
               <div>
                 <span *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required" class="mdl-textfield__error">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size form-group">
-              <input formControlName="Confirm" class="mdl-textfield__input form-control" type="text">
+              <input formControlName="Confirm" class="mdl-textfield__input form-control" type="password">
               <label class="mdl-textfield__label">Potwierdź hasło</label>
               <div>
                 <span *ngIf="service.formModel.get('Passwords.Confirm').touched && service.formModel.get('Passwords.Confirm').errors?.required" class="mdl-textfield__error">
@@ -66,16 +66,16 @@
           </div>
 
           <label baseCheckbox color="light-blue" class="checkbox--inline" inline></label>
-          <span class="blank-layout-card-link">I agree all statements in <a href="#"
-                                                                            class="underlined">terms of service</a></span>
+          <span class="blank-layout-card-link">Wyrażam zgodę na <a href="#"
+            class="underlined">warunki</a> korzystania z aplikacji. </span>
         </div>
 
         <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
-          <a routerLink="/pages/login" class="blank-layout-card-link">I have already signed up</a>
+          <a routerLink="/pages/login" class="blank-layout-card-link">Posiadasz już konto? Zaloguj się</a>
           <div class="mdl-layout-spacer"></div>
           <button class="mdl-button mdl-js-button mdl-button--raised color--light-blue"
-                  type="submit" [disabled]="!service.formModel.valid">
-            SIGN UP
+                  type="submit">
+            REJESTRACJA
           </button>
         </div>
       </form>

@@ -20,5 +20,6 @@ namespace SmartProject.Models
         public UserBasicInfo ProjectCreator { get; set; }
         public ICollection<ReleaseModel> Releases { get; set; }
         public ICollection<ProjectUserModel> ProjectUsers { get; set; }
+        public ICollection<AttachmentModel> Attachments { get; set; }
     }
 }

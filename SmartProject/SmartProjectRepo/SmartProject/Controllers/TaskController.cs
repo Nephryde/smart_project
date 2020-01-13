@@ -65,6 +65,23 @@ namespace SmartProject.Controllers
             return query;
         }
 
+        [HttpGet("{id}")]
+        [Route("GetTaskWorkTime/{id}")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetTaskWorkTime(int id)
+        {
+            var query = await (from t in _context.Task
+                               join lwt in _context.LoggedWorkTime on t.Id equals lwt.TaskId
+                               join wa in _context.WorkActivities on lwt.WorkActivity.Id equals wa.Id
+                               where t.Id == id
+                               select new Dictionary<string, object>
+                               {
+                                   {"time", lwt.LoggedTime }
+                               })
+                               .ToListAsync();
+
+            return query;
+        }
+
         [HttpPost]
         [Route("AddNewTask")]
         public async Task<ActionResult<TaskModel>> PostTaskModel(TaskModel taskModel)
@@ -90,6 +107,34 @@ namespace SmartProject.Controllers
             try
             {
                 _context.Task.Add(newTask);
+                var result = await _context.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        [Route("AddComment")]
+        public async Task<ActionResult<TaskModel>> PostComment(TaskCommentModel taskComment)
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.Users.Include(x => x.UserBasic).FirstOrDefaultAsync(x => x.Id == userId);
+
+            TaskCommentModel newComment = new TaskCommentModel()
+            {
+                Task = _context.Task.FirstOrDefault(x => x.Id == taskComment.Task.Id),
+                Content = taskComment.Content,
+                IsActive = true,
+                User = _context.UserBasicInfo.FirstOrDefault(x => x.Id == user.UserBasic.Id)
+            };
+
+            try
+            {
+                _context.TaskComments.Add(newComment);
                 var result = await _context.SaveChangesAsync();
 
                 return Ok(result);
@@ -180,5 +225,43 @@ namespace SmartProject.Controllers
         {
             return await _context.TaskPriorities.ToListAsync();
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TaskModel>> PutTaskModel(int id, [FromBody]TaskModel taskModel)
+        {
+            if (id != taskModel.Id)
+            {
+                return BadRequest();
+            }
+
+            taskModel.ModifiedDate = DateTime.Now;
+            _context.Entry(taskModel).State = EntityState.Modified;
+
+            try
+            {
+                var result = await _context.SaveChangesAsync();
+                return Ok(result);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TaskModelExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool TaskModelExists(int id)
+        {
+            return _context.Task.Any(e => e.Id == id);
+        }
     }
+
+    
 }

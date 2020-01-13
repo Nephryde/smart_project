@@ -34,7 +34,7 @@ namespace SmartProject.Controllers
             LoggedWorkTimeModel newLog = new LoggedWorkTimeModel()
             {
                 LoggedTime = loggedWorkModel.LoggedTime,
-                Date = loggedWorkModel.Date,
+                Date = loggedWorkModel.Date.AddDays(1),
                 UserId = user.UserBasic.Id,
                 TaskId = loggedWorkModel.TaskId,
                 Comment = loggedWorkModel.Comment

@@ -1,0 +1,31 @@
+<base-card>
+        <base-card-title>
+        <h2 class="mdl-card__title-text">Dodaj członka</h2>
+        </base-card-title>
+        <base-card-body class="no-padding">
+        <form [formGroup]="myForm" (submit)="addNewProject()"> 
+                <mat-form-field>
+                    <input type="text" aria-label="Number" placeholder="Użytkownik" formControlName="ProjectManager" matInput [matAutocomplete]="auto" required>
+                      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn(filteredOptions | async)">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+                          {{option.fullName}}
+                        </mat-option>
+                      </mat-autocomplete>
+                  </mat-form-field>   
+                  <mat-form-field>
+                    <mat-label>Rola</mat-label>
+                    <mat-select formControlName="RoleId" required>
+                        <mat-option *ngFor="let role of roles" [value]="role.id">
+                            {{role.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone form__article">   
+              <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal" [disabled]="!myForm.valid">
+                <i class="material-icons">add</i>
+                DODAJ
+              </button>
+              </div>
+          </form>
+        </base-card-body>
+    </base-card>

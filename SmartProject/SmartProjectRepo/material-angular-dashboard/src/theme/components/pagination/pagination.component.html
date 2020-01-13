@@ -2,7 +2,7 @@
 <span> {{ currentPage }} of {{ numPage }} </span>
 <span (click)="onChangePage(1)"><i class="material-icons">chevron_right</i></span>
 <div class="goto">
-  <span> Go to </span>
+  <span> Idź do </span>
   <form (submit)="goToPage($event)">
     <input [(ngModel)]="inputNumPage" name="inputPage"
            class="mdl-textfield__input"

@@ -5,6 +5,9 @@
     <base-card>
       <base-card-title>
         <h2 class="mdl-card__title-text">Dzisiejszy przepracowany czas</h2>
+        <div style="margin-left: auto; padding-left: 20px;">
+          <span (click)="goToWorkTime()" style="color: #00bcd4; cursor: pointer;"><span class="add-content-text">Szczegóły</span> </span>
+        </div>
       </base-card-title>
       <base-card-body>
         <app-pie-chart></app-pie-chart>
