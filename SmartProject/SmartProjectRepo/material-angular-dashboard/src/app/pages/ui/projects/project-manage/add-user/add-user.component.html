@@ -3,7 +3,7 @@
         <h2 class="mdl-card__title-text">Dodaj członka</h2>
         </base-card-title>
         <base-card-body class="no-padding">
-        <form [formGroup]="myForm" (submit)="addNewProject()"> 
+        <form [formGroup]="myForm" (submit)="addNewProjectUser()"> 
                 <mat-form-field>
                     <input type="text" aria-label="Number" placeholder="Użytkownik" formControlName="ProjectManager" matInput [matAutocomplete]="auto" required>
                       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn(filteredOptions | async)">

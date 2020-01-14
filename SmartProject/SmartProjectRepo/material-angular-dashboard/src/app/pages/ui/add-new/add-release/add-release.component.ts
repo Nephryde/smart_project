@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from 'app/services/project.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-release',
@@ -13,7 +14,7 @@ export class AddReleaseComponent implements OnInit {
   myForm: FormGroup;
   projectId: number;
 
-  constructor(private fb: FormBuilder, private projectService: ProjectService, private route: Router, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder, private projectService: ProjectService, private route: Router, private toastr: ToastrService, private location: Location) { }
 
   ngOnInit() {
     const urlArr = this.route.url.split("/");
@@ -37,6 +38,7 @@ export class AddReleaseComponent implements OnInit {
         if(res){
           this.myForm.reset();
           this.toastr.success('Projekt został pomyślnie dodany.', 'Sukces', );
+          this.location.back();
         } else {
             console.log("błąd");
         }

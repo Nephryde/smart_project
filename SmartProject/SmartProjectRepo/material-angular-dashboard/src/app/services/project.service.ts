@@ -4,10 +4,12 @@ import { environment } from 'environments/environment';
 import { Project } from 'app/models/project/project.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { User } from 'app/models/user.model';
+import { ProjectRoles } from 'app/models/project/project-roles.model';
 
 @Injectable()
 export class ProjectService {
   public projectModel = new Project();
+  public roleModel = new ProjectRoles();
 
   constructor(private http: HttpClient, private fb: FormBuilder) { }
 
@@ -25,9 +27,8 @@ export class ProjectService {
     return this.http.get(environment.apiBaseUrl + '/Project/GetProjectManagers');
   }
 
-  getUsers() {
-    return this.http.get(environment.apiBaseUrl + '/Project/GetUsers');
-  }
+  getUsers= (projectId: number) =>
+    this.http.get(environment.apiBaseUrl + '/Project/GetUsers/' + projectId);
 
   getRoles() {
     return this.http.get(environment.apiBaseUrl + '/Project/GetRoles');
@@ -51,6 +52,10 @@ export class ProjectService {
 
   getLoggedTime() {
     return this.http.get(environment.apiBaseUrl + '/Project/GetWorkTime/');
+  }
+
+  deleteProjectUser(userId:number, projectId: number) {
+    return this.http.delete(environment.apiBaseUrl + '/Project/DeleteProjectUser/' + userId +'/' + projectId);
   }
 
   addProject(form: FormGroup, prManager: User) {
@@ -77,6 +82,19 @@ export class ProjectService {
     }
 
     return this.http.post(environment.apiBaseUrl + '/Project/AddNewRelease', body);
+  }
+
+  addProjectUser(form: FormGroup, usr: User, projectId: number) {
+    this.roleModel.id = form.value.RoleId;
+
+    var body = {
+      ProjectId: projectId,
+      UserId: usr.id,
+      Role: this.roleModel
+    };
+    console.log(body);
+
+    return this.http.post(environment.apiBaseUrl + '/Project/AddProjectUser', body);
   }
 
   getProjectsHeaders() {

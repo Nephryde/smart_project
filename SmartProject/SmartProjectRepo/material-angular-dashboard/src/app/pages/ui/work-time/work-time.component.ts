@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ProjectService } from 'app/services/project.service';
 import { Router } from '@angular/router';
+import { WorkTime } from 'app/models/work-time.model';
 
 @Component({
   selector: 'app-work-time',
@@ -17,8 +18,8 @@ export class WorkTimeComponent implements OnInit {
   @HostBinding('class.mdl-cell--4-col-phone') private readonly mdlCell4ColPhone = true;
   @HostBinding('class.mdl-cell--top') private readonly mdlCellTop = true;
   @HostBinding('class.ui-tables') private readonly uiTables = true;
-  workTime: Object[] = [];
-  sortedWorkTime: Object[] = [];
+  workTime: WorkTime[] = [];
+  sortedWorkTime: WorkTime[] = [];
   public workTimeHeaders = this.projectService.getWorkTimeHeaders();
 
   constructor(private projectService: ProjectService, private router: Router) { }

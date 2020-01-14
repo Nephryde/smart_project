@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ProjectService } from 'app/services/project.service';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-task',
@@ -27,7 +28,7 @@ export class AddTaskComponent implements OnInit {
   releaseName: string;
   myDate = new Date();
 
-  constructor(private taskService: TaskService, private projectService: ProjectService, private fb: FormBuilder, private toastr: ToastrService) { 
+  constructor(private taskService: TaskService, private projectService: ProjectService, private fb: FormBuilder, private toastr: ToastrService, private location: Location) { 
   }
 
   async ngOnInit() {
@@ -82,6 +83,7 @@ export class AddTaskComponent implements OnInit {
         if(res){
           this.myForm.reset();
           this.toastr.success('Zgłoszenie zostało pomyślnie dodane.', 'Sukces', );
+          this.location.back();
         } else {
             console.log("błąd");
         }

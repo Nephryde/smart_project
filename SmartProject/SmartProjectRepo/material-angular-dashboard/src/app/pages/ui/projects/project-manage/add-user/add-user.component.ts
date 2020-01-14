@@ -6,6 +6,7 @@ import { Project } from 'app/models/project/project.model';
 import { ProjectService } from 'app/services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { startWith, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -22,6 +23,7 @@ export class AddUserComponent implements OnInit {
   projectManagers: User[];
   roles: any[];
   userToPass: User;
+  projectId: number;
 
   @HostBinding('class.mdl-grid') private readonly mdlGrid = true;
   @HostBinding('class.mdl-cell') private readonly mdlCell = true;
@@ -30,10 +32,12 @@ export class AddUserComponent implements OnInit {
   @HostBinding('class.mdl-cell--4-col-phone') private readonly mdlCell4ColPhone = true;
   @HostBinding('class.mdl-cell--top') private readonly mdlCellTop = true;
 
-  constructor(public projectService: ProjectService, private toastr: ToastrService, private fb: FormBuilder) { }
+  constructor(public projectService: ProjectService, private toastr: ToastrService, private fb: FormBuilder, private route: Router) { }
 
 
   async ngOnInit() {
+    const urlArr = this.route.url.split("/");
+    this.projectId = Number(urlArr[3]);
     this.initForm();
     this.projectManagers = await this.getUsers();
     this.roles = await this.getRoles();
@@ -49,22 +53,24 @@ export class AddUserComponent implements OnInit {
   }
 
   getUsers() : Promise<any> {
-    return this.projectService.getUsers().toPromise();
+    return this.projectService.getUsers(this.projectId).toPromise();
   }
 
   getRoles() : Promise<any> {
     return this.projectService.getRoles().toPromise();
   }
 
-  addNewProject() {
+  addNewProjectUser() {
+    console.log(this.myForm);
     this.userToPass = this.projectManagers.find(x => x.id === this.myForm.controls['ProjectManager'].value);
 
-    this.projectService.addProject(this.myForm, this.userToPass).subscribe(
+    this.projectService.addProjectUser(this.myForm, this.userToPass, this.projectId).subscribe(
       (res:any) => {
         console.log(res);
         if(res){
           this.myForm.reset();
-          this.toastr.success('Projekt został pomyślnie dodany.', 'Sukces', );
+          this.toastr.success('Członek został pomyślnie dodany.', 'Sukces', );
+          window.location.reload();
         } else {
             console.log("błąd");
         }

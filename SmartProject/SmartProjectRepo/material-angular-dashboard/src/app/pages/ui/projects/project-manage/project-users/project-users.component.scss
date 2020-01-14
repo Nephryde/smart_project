@@ -58,6 +58,17 @@
     text-decoration: underline;
   }
 
+.link2{
+  color: red;   
+  cursor: pointer;
+  float: right;
+}
+
+  .link2:hover {
+    color: white;
+    text-decoration: underline;
+  }
+
 .right {
   margin-left: auto;
   padding-left: 20px; 

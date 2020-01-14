@@ -6,6 +6,7 @@ import { Project } from 'app/models/project/project.model';
 import { ProjectService } from 'app/services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'app/models/user.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-project',
@@ -28,7 +29,7 @@ export class AddProjectComponent implements OnInit {
   @HostBinding('class.mdl-cell--4-col-phone') private readonly mdlCell4ColPhone = true;
   @HostBinding('class.mdl-cell--top') private readonly mdlCellTop = true;
 
-  constructor(public projectService: ProjectService, private toastr: ToastrService, private fb: FormBuilder) { }
+  constructor(public projectService: ProjectService, private toastr: ToastrService, private fb: FormBuilder, private location: Location) { }
 
   async ngOnInit() {
     this.initForm();
@@ -55,6 +56,7 @@ export class AddProjectComponent implements OnInit {
         if(res){
           this.myForm.reset();
           this.toastr.success('Projekt został pomyślnie dodany.', 'Sukces', );
+          this.location.back();
         } else {
             console.log("błąd");
         }

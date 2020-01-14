@@ -148,18 +148,29 @@ namespace SmartProject.Controllers
         }
 
         [HttpGet]
-        [Route("GetUsers")]
-        public async Task<ActionResult<IEnumerable<Object>>> GetUsers()
+        [Route("GetUsers/{id}")]
+        public async Task<ActionResult<IEnumerable<Object>>> GetUsers(int id)
         {
-            var query = await (from usr in _context.UserBasicInfo
-                               select new Dictionary<string, object>
-                               {
-                                   {"id", usr.Id },
-                                   {"fullName", usr.FullName }
-                               })
-                               .ToListAsync();
+            var list1 = await _context.UserBasicInfo.ToListAsync();
+            var list2 = await (from usr in _context.UserBasicInfo
+                               join pu in _context.ProjectUser on usr.Id equals pu.UserId
+                               where pu.ProjectId == 5 select usr).ToListAsync();
 
-            return query;
+            var answer = list1.Except(list2).ToList();
+
+            //var query = await (from usr in _context.UserBasicInfo
+            //                   where !(from usrr in _context.UserBasicInfo
+            //                           join pu in _context.ProjectUser on usrr.Id equals pu.UserId
+            //                           where pu.ProjectId == 5
+            //                           select usrr.Id)
+            //                   select new Dictionary<string, object>
+            //                   {
+            //                       {"id", usr.Id },
+            //                       {"fullName", usr.FullName }
+            //                   })
+            //                   .ToListAsync();
+
+            return answer;
         }
 
         [HttpGet]
@@ -246,6 +257,38 @@ namespace SmartProject.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("AddProjectUser")]
+        public async Task<ActionResult<ProjectUserModel>> AddProjectUser(ProjectUserModel projectUser)
+        {
+            ProjectModel project = _context.Projects.FirstOrDefault(x => x.Id == projectUser.ProjectId);
+            UserBasicInfo user = _context.UserBasicInfo.FirstOrDefault(x => x.Id == projectUser.UserId);
+            ProjectRolesModel role = _context.ProjectRoles.FirstOrDefault(x => x.Id == projectUser.Role.Id);
+
+            ProjectUserModel newProjectUser = new ProjectUserModel()
+            {
+                ProjectId = projectUser.ProjectId,
+                Project = project,
+                UserId = projectUser.UserId,
+                User = user,
+                Role = role
+            };
+
+            var x = newProjectUser;
+
+            try
+            {
+                _context.ProjectUser.Add(newProjectUser);
+                var result = await _context.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // POST: api/Project
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -302,19 +345,20 @@ namespace SmartProject.Controllers
         }
 
         // DELETE: api/Project/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ProjectModel>> DeleteProjectModel(int id)
+        [HttpDelete]
+        [Route("DeleteProjectUser/{userId}/{projectId}")]
+        public async Task<ActionResult<ProjectUserModel>> DeleteProjectModel(int userId, int projectId)
         {
-            var projectModel = await _context.Projects.FindAsync(id);
-            if (projectModel == null)
+            var projectUserModel = await _context.ProjectUser.FirstOrDefaultAsync(x => x.UserId == userId && x.ProjectId == projectId && x.Role != null);
+            if (projectUserModel == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(projectModel);
+            _context.ProjectUser.Remove(projectUserModel);
             await _context.SaveChangesAsync();
 
-            return projectModel;
+            return projectUserModel;
         }
 
         private bool ProjectModelExists(int id)

@@ -51,4 +51,8 @@ export class TaskComponent implements OnInit {
     this.route.navigate(['ui/task/log-time/', this.id]);
   }
 
+  redirectEditTask() {
+    this.route.navigate(['ui/edit-task/', this.id]);
+  }
+
 }

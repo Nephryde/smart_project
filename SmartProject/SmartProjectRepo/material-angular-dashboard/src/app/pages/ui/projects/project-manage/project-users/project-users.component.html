@@ -12,13 +12,9 @@
                 </mat-list-option>
             </mat-selection-list>
             <hr>
-            <span (click)="expandFilters(filtersVisible)" class="link icon-text"><i
+            <span (click)="expandAddUserWindow()" class="link icon-text"><i
                 class="material-icons header-icon"><b>filter_list</b></i><span class="add-content-text">Dodaj członka</span>
         </span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span (click)="expandFilters(filtersVisible)" class="link icon-text"><i
-            class="material-icons header-icon"><b>filter_list</b></i><span class="add-content-text">Dodaj rolę</span>
-    </span>
         </base-card-body>
     </base-card>
 </div>
@@ -27,13 +23,17 @@
         <base-card-title>
         </base-card-title>
         <base-card-body class="no-padding">
-            <div *ngFor="let user of filteredProjectUsers">
-                <p>{{user.userFullName}}</p>
+            <div *ngFor="let user of filteredProjectUsers ; let i = index">
+                <p class="info">{{user.userFullName}}
+                <span (click)="deleteProjectUser(user.userId, index)" class="link2 icon-text"><i
+                    class="material-icons header-icon"><b>delete</b></i>
+                </span>
+            </p> 
             </div>
         </base-card-body>
     </base-card>
 </div>
 
-<div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+<div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" *ngIf="window1Visible">
     <app-add-user></app-add-user>
 </div>
